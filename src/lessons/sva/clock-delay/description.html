@@ -1,0 +1,9 @@
+<p>The <strong>clock delay</strong> operator <code><dfn data-card="## (double-hash) is SVA's clock-delay operator. ##1 shifts the evaluation point forward by exactly one clock cycle. ##[m:n] means between m and n cycles. ##[1:$] means one or more cycles ($ = infinity). You chain ## operators to build temporal sequences: a ##1 b ##2 c means 'a is true now, b is true one cycle later, c is true three cycles later.'">##</dfn></code> is what makes sequence expressions temporal. It shifts evaluation forward by one or more clock cycles.</p>
+<ul>
+  <li><code>##m</code> — exactly <em>m</em> cycles later</li>
+  <li><code>##[m:n]</code> — between <em>m</em> and <em>n</em> cycles later</li>
+  <li><code>##[1:$]</code> — one or more cycles (<code>$</code> means unbounded)</li>
+</ul>
+<p>Open <code>delay_check.sv</code>. The spec is: <em>after a memory request (<code>mem_req</code>), the response (<code>mem_ack</code>) must arrive within 2 to 5 clock cycles.</em></p>
+<p>Complete the property body using <code>|-> ##[2:5]</code>, then press <strong>verify</strong>.</p>
+<p>If the delay range is wrong, the model checker will produce a counterexample trace in the log showing exactly which cycle <code>mem_req</code> fired and how many cycles later <code>mem_ack</code> arrived — useful for spotting off-by-one errors.</p>

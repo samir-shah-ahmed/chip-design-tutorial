@@ -1,0 +1,51 @@
+<p><dfn
+        data-card="CMOS (Complementary Metal-Oxide-Semiconductor) is the dominant technology for building digital integrated circuits. It uses pairs of NMOS and PMOS transistors to implement logic gates with near-zero static power consumption.">CMOS</dfn>
+    is the technology behind virtually every digital chip made today — from your phone's processor to satellite
+    computers.</p>
+
+<h2>MOS Transistors</h2>
+<svg width="440" height="140" viewBox="0 0 440 140" xmlns="http://www.w3.org/2000/svg"
+    style="display:block;max-width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;margin:10px auto">
+    <rect x="10" y="10" width="200" height="120" rx="8" fill="#e8f4f8" stroke="#0d6f72" stroke-width="2" />
+    <text x="110" y="35" text-anchor="middle" font-weight="bold" fill="#0d6f72">NMOS</text>
+    <text x="110" y="58" text-anchor="middle" fill="#3d9fa3">Gate=1 → ON (conducts)</text>
+    <text x="110" y="78" text-anchor="middle" fill="#3d9fa3">Gate=0 → OFF (open)</text>
+    <text x="110" y="98" text-anchor="middle" fill="#3d9fa3">Good at pulling LOW</text>
+    <text x="110" y="115" text-anchor="middle" fill="#3d9fa3">Connects to GND</text>
+    <rect x="230" y="10" width="200" height="120" rx="8" fill="#f0e8f8" stroke="#6b2fa0" stroke-width="2" />
+    <text x="330" y="35" text-anchor="middle" font-weight="bold" fill="#6b2fa0">PMOS</text>
+    <text x="330" y="58" text-anchor="middle" fill="#8b5fbf">Gate=0 → ON (conducts)</text>
+    <text x="330" y="78" text-anchor="middle" fill="#8b5fbf">Gate=1 → OFF (open)</text>
+    <text x="330" y="98" text-anchor="middle" fill="#8b5fbf">Good at pulling HIGH</text>
+    <text x="330" y="115" text-anchor="middle" fill="#8b5fbf">Connects to VDD</text>
+</svg>
+
+<h2>CMOS Inverter</h2>
+<p>The simplest CMOS gate: a PMOS on top (pull-up) and NMOS on bottom (pull-down).</p>
+<pre>// When input A = 0:
+//   PMOS ON  → output pulled to VDD (1)
+//   NMOS OFF → no path to GND
+// When input A = 1:
+//   PMOS OFF → no path to VDD
+//   NMOS ON  → output pulled to GND (0)
+// Result: output = NOT(A)</pre>
+
+<h2>CMOS NAND Gate</h2>
+<p>2 PMOS in <strong>parallel</strong> (pull-up) + 2 NMOS in <strong>series</strong> (pull-down). Output is LOW only
+    when BOTH inputs are HIGH.</p>
+
+<h2>CMOS NOR Gate</h2>
+<p>2 PMOS in <strong>series</strong> + 2 NMOS in <strong>parallel</strong>. Output is HIGH only when BOTH inputs are
+    LOW.</p>
+
+<h2>Why CMOS Wins</h2>
+<ul>
+    <li><strong>Zero static power</strong> — In steady state, one path is always OFF, so no current flows VDD→GND</li>
+    <li><strong>Full voltage swing</strong> — Outputs reach full VDD or GND (unlike NMOS-only logic)</li>
+    <li><strong>Scalability</strong> — Works from early μm down to today's 3nm process nodes</li>
+</ul>
+
+<blockquote>
+    <p><strong>Exercise:</strong> Model a CMOS inverter behavior in <code>cmos_inv.sv</code> and verify its truth table.
+    </p>
+</blockquote>

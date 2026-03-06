@@ -1,0 +1,46 @@
+<p>Power consumption determines how hot a chip gets, how long a battery lasts, and whether a design is even feasible.
+    Modern chips are as much about managing power as they are about performance.</p>
+
+<h2>Types of Power</h2>
+<svg width="460" height="130" viewBox="0 0 460 130" xmlns="http://www.w3.org/2000/svg"
+    style="display:block;max-width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;margin:10px auto">
+    <rect x="10" y="10" width="200" height="110" rx="8" fill="#e8f4f8" stroke="#0d6f72" stroke-width="2" />
+    <text x="110" y="35" text-anchor="middle" font-weight="bold" fill="#0d6f72">Dynamic Power</text>
+    <text x="110" y="55" text-anchor="middle" fill="#3d9fa3" font-size="11">P = α·C·V²·f</text>
+    <text x="110" y="75" text-anchor="middle" fill="#3d9fa3" font-size="10">α=activity, C=capacitance</text>
+    <text x="110" y="92" text-anchor="middle" fill="#3d9fa3" font-size="10">V=voltage, f=frequency</text>
+    <text x="110" y="108" text-anchor="middle" fill="#3d9fa3" font-size="10">Dominant at older nodes</text>
+    <rect x="250" y="10" width="200" height="110" rx="8" fill="#f0e8f8" stroke="#6b2fa0" stroke-width="2" />
+    <text x="350" y="35" text-anchor="middle" font-weight="bold" fill="#6b2fa0">Static (Leakage)</text>
+    <text x="350" y="55" text-anchor="middle" fill="#8b5fbf" font-size="11">P = V · I_leak</text>
+    <text x="350" y="75" text-anchor="middle" fill="#8b5fbf" font-size="10">Always on, even idle</text>
+    <text x="350" y="92" text-anchor="middle" fill="#8b5fbf" font-size="10">Worse at smaller nodes</text>
+    <text x="350" y="108" text-anchor="middle" fill="#8b5fbf" font-size="10">Dominant at <14nm< /text>
+</svg>
+
+<h2>Power Reduction Techniques</h2>
+<ul>
+    <li><strong>Clock Gating</strong> — Disable clock to idle modules. Most effective technique (saves both power and
+        area for clock distribution).</li>
+    <li><strong>Voltage Scaling</strong> — P ∝ V². Reducing voltage by 20% saves ~36% dynamic power.</li>
+    <li><strong>Power Gating</strong> — Completely shut off power to unused blocks (eliminates leakage).</li>
+    <li><strong>Multi-Vt Libraries</strong> — Use high-threshold cells on non-critical paths (less leakage) and
+        low-threshold on critical paths (faster).</li>
+    <li><strong>DVFS</strong> — Dynamic Voltage and Frequency Scaling. Adapts voltage and clock speed based on workload.
+    </li>
+</ul>
+
+<h2>Clock Gating in Verilog</h2>
+<pre>// Without clock gating (wastes power):
+always @(posedge clk)
+  if (enable) reg_out <= data_in;
+
+// With clock gating (saves power):
+wire gated_clk = clk & enable;  // simplified; real designs use ICG cells
+always @(posedge gated_clk)
+  reg_out <= data_in;</pre>
+
+<blockquote>
+    <p><strong>Exercise:</strong> Add clock gating to the design in <code>low_power.sv</code> to reduce power when the
+        module is idle.</p>
+</blockquote>

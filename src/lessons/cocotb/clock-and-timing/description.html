@@ -1,0 +1,21 @@
+<p>
+  Cocotb drives clocks using <code>Timer(n, units="ns")</code> — the Python equivalent of
+  <code>#n</code> in Verilog. The helper <code>clock_cycle(dut)</code> in
+  <code>test_counter.py</code> performs one full 10&nbsp;ns period: drive low, wait 5&nbsp;ns,
+  drive high (posedge fires here), wait 5&nbsp;ns.
+</p>
+<p>
+  After each rising edge the DUT has already updated, so you can read
+  <code>dut.count.value</code> immediately — no extra delay needed.
+</p>
+<p>
+  Open <code>counter.sv</code> and implement the 4-bit up-counter with synchronous reset.
+  When <code>rst</code> is high, <code>count</code> must clear to zero on the next rising edge.
+</p>
+<blockquote>
+  <p>
+    <code><dfn data-card="Timer(n, units) is cocotb's primitive for advancing simulation time. await Timer(5, 'ns') suspends the current coroutine for 5 ns and resumes it when that time has elapsed. It's the Python equivalent of #5 in Verilog. All other cocotb timing helpers (RisingEdge, FallingEdge, ClockCycles) are built on top of Timer.">Timer</dfn></code> is the fundamental cocotb trigger: it fires exactly once at the
+    scheduled simulation time. Higher-level helpers like <code>RisingEdge</code> and
+    <code>Clock</code> are built on top of it.
+  </p>
+</blockquote>

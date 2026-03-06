@@ -1,0 +1,85 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install host prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rsync unzip
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Setup Surfer assets
+        run: scripts/setup-surfer.sh
+
+      - name: Setup Pyodide assets
+        run: scripts/setup-pyodide.sh
+
+      - name: Download CIRCT wasm artifacts
+        # WASM artifacts are built locally and published to the circt-wasm release
+        # via: npm run build:circt && npm run publish:circt
+        # CI just downloads the pre-built artifacts — no Emscripten build here.
+        run: |
+          mkdir -p static/circt
+          if gh release download circt-wasm \
+               --repo "$GITHUB_REPOSITORY" \
+               -D static/circt \
+               --clobber 2>/dev/null; then
+            if [ -f static/circt/uvm-core.tar.gz ]; then
+              rm -rf static/circt/uvm-core
+              tar -xzf static/circt/uvm-core.tar.gz -C static/circt
+            fi
+            echo "CIRCT artifacts downloaded"
+            ls -lh static/circt/*.js
+          else
+            echo "::warning::No circt-wasm release found — WASM smoke tests will be skipped"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Build tutorial app
+        run: npm run build
+
+      - name: Install Playwright browser (UVM smoke)
+        run: npx playwright install --with-deps chromium
+
+      - name: UVM browser-worker smoke (reporting lesson)
+        run: |
+          LOG_DIR="$RUNNER_TEMP/uvm-smoke-logs"
+          mkdir -p "$LOG_DIR"
+          ./scripts/run-uvm-browser-worker-matrix.sh \
+            --smoke \
+            --retries 3 \
+            --log-dir "$LOG_DIR"
+
+      - name: Upload UVM smoke logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uvm-smoke-logs-${{ github.run_id }}
+          path: ${{ runner.temp }}/uvm-smoke-logs
+          if-no-files-found: ignore

@@ -1,0 +1,42 @@
+<p><dfn
+        data-card="Timing analysis ensures that data arrives at flip-flop inputs at the right time relative to the clock edge. Violations cause metastability — the flip-flop captures an unpredictable value. Setup and hold times are the fundamental timing constraints.">Timing
+        analysis</dfn> is what separates a working chip from a paperweight. It ensures all signals arrive at the right
+    time.</p>
+
+<h2>Setup and Hold Time</h2>
+<svg width="460" height="180" viewBox="0 0 460 180" xmlns="http://www.w3.org/2000/svg"
+    style="display:block;max-width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;margin:10px auto">
+    <line x1="30" y1="140" x2="430" y2="140" stroke="#888" stroke-width="1" />
+    <text x="230" y="170" text-anchor="middle" fill="#888">Time →</text>
+    <line x1="230" y1="20" x2="230" y2="140" stroke="#0d6f72" stroke-width="2" stroke-dasharray="4" />
+    <text x="230" y="15" text-anchor="middle" fill="#0d6f72" font-weight="bold">Clock Edge</text>
+    <rect x="130" y="50" width="100" height="30" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" />
+    <text x="180" y="70" text-anchor="middle" fill="#d97706" font-weight="bold" font-size="12">Setup Time</text>
+    <text x="180" y="100" text-anchor="middle" fill="#b45309" font-size="10">Data must be stable BEFORE edge</text>
+    <rect x="230" y="50" width="80" height="30" rx="4" fill="#e8f4f8" stroke="#0d6f72" stroke-width="1.5" />
+    <text x="270" y="70" text-anchor="middle" fill="#0d6f72" font-weight="bold" font-size="12">Hold Time</text>
+    <text x="270" y="100" text-anchor="middle" fill="#3d9fa3" font-size="10">Data must be stable AFTER edge</text>
+</svg>
+
+<h2>Propagation Delay</h2>
+<p>Every gate takes time to produce its output. The <strong>critical path</strong> is the longest combinational delay
+    between two flip-flops — it determines maximum clock frequency:</p>
+<pre>T_clk > T_cq + T_logic + T_setup
+// T_cq:    clock-to-q delay of source flip-flop
+// T_logic: combinational logic delay (critical path)
+// T_setup: setup time of destination flip-flop</pre>
+<p>Maximum frequency = 1 / T_clk</p>
+
+<h2>Clock Skew</h2>
+<p>Clock doesn't arrive at all flip-flops simultaneously. The difference is <strong>skew</strong>. Positive skew helps
+    setup but hurts hold; negative skew does the opposite.</p>
+
+<h2>Metastability</h2>
+<p>When setup or hold time is violated, the flip-flop enters an unpredictable state. It <em>eventually</em> settles to 0
+    or 1, but the settling time is random. Synchronizers (two flip-flops in series) reduce metastability probability.
+</p>
+
+<blockquote>
+    <p><strong>Exercise:</strong> The starter code has a pipelined design. Examine it and identify the critical path by
+        tracing the longest combinational logic chain between registers.</p>
+</blockquote>

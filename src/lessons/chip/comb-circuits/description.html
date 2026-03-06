@@ -1,0 +1,39 @@
+<p><dfn
+        data-card="Combinational circuits produce outputs that depend only on the current inputs — they have no memory or state. Examples include adders, muxes, decoders, and encoders. Their output changes immediately (after propagation delay) when inputs change.">Combinational
+        circuits</dfn> are the building blocks of all digital logic. Their outputs depend only on current inputs — no
+    clock, no memory.</p>
+
+<h2>Multiplexer (MUX)</h2>
+<p>Selects one of N inputs based on select lines. A 2:1 mux needs 1 select bit; a 4:1 mux needs 2.</p>
+<svg width="200" height="120" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg"
+    style="display:block;max-width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;margin:10px auto">
+    <polygon points="60,10 60,110 140,80 140,40" fill="#e6f5f5" stroke="#0d6f72" stroke-width="2" />
+    <text x="90" y="65" text-anchor="middle" font-weight="bold" fill="#0d6f72">MUX</text>
+    <text x="40" y="35" text-anchor="end" fill="#1e2a2c">a</text>
+    <text x="40" y="75" text-anchor="end" fill="#1e2a2c">b</text>
+    <text x="100" y="108" text-anchor="middle" fill="#1e2a2c">sel</text>
+    <text x="160" y="65" fill="#1e2a2c">y</text>
+</svg>
+
+<h2>Decoder</h2>
+<p>Converts an N-bit binary input into 2^N output lines (one-hot):</p>
+<pre>// 2-to-4 decoder:  in=00 → out=0001
+//                   in=01 → out=0010
+//                   in=10 → out=0100
+//                   in=11 → out=1000</pre>
+
+<h2>Encoder / Priority Encoder</h2>
+<p>The reverse of a decoder — converts one-hot input to binary. Priority encoders handle multiple active inputs by
+    selecting the highest priority.</p>
+
+<h2>Adder Circuits</h2>
+<p><strong>Half Adder</strong>: Adds two 1-bit inputs, produces sum and carry.</p>
+<pre>sum   = a ^ b;    // XOR
+carry = a & b;    // AND</pre>
+<p><strong>Full Adder</strong>: Adds two bits plus a carry-in. Chain them for multi-bit addition (ripple-carry adder).
+</p>
+
+<blockquote>
+    <p><strong>Exercise:</strong> Build a 4-bit ripple-carry adder by cascading full adders in <code>adder4.sv</code>.
+    </p>
+</blockquote>

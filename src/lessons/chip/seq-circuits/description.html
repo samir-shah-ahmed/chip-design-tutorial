@@ -1,0 +1,43 @@
+<p><dfn
+        data-card="Sequential circuits have memory — their outputs depend on both current inputs AND the history of past inputs. The clock signal synchronizes state changes. Key elements include latches, flip-flops, registers, and counters.">Sequential
+        circuits</dfn> add <strong>memory</strong> to logic. Unlike combinational circuits, their outputs depend on both
+    current inputs and stored state.</p>
+
+<h2>Latches vs Flip-Flops</h2>
+<svg width="420" height="130" viewBox="0 0 420 130" xmlns="http://www.w3.org/2000/svg"
+    style="display:block;max-width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;margin:10px auto">
+    <rect x="10" y="10" width="190" height="110" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+    <text x="105" y="35" text-anchor="middle" font-weight="bold" fill="#d97706">Latch</text>
+    <text x="105" y="55" text-anchor="middle" fill="#b45309" font-size="11">Level-sensitive</text>
+    <text x="105" y="75" text-anchor="middle" fill="#b45309" font-size="11">Transparent when enable=1</text>
+    <text x="105" y="95" text-anchor="middle" fill="#b45309" font-size="11">⚠ Avoid in synchronous design</text>
+    <rect x="220" y="10" width="190" height="110" rx="8" fill="#e8f4f8" stroke="#0d6f72" stroke-width="2" />
+    <text x="315" y="35" text-anchor="middle" font-weight="bold" fill="#0d6f72">Flip-Flop</text>
+    <text x="315" y="55" text-anchor="middle" fill="#3d9fa3" font-size="11">Edge-triggered</text>
+    <text x="315" y="75" text-anchor="middle" fill="#3d9fa3" font-size="11">Captures on clock edge</text>
+    <text x="315" y="95" text-anchor="middle" fill="#3d9fa3" font-size="11">✓ Standard for RTL design</text>
+</svg>
+
+<h2>D Flip-Flop</h2>
+<p>The most common storage element. Captures input D on the rising edge of clock:</p>
+<pre>always @(posedge clk)
+  q <= d;   // non-blocking: "capture d into q on clock edge"</pre>
+
+<h2>Registers</h2>
+<p>A register is simply N flip-flops in parallel, storing an N-bit value:</p>
+<pre>reg [7:0] data_reg;  // 8-bit register
+always @(posedge clk)
+  if (load) data_reg <= data_in;</pre>
+
+<h2>Counters</h2>
+<p>Registers with feedback — the output feeds back to the input through an adder.</p>
+
+<h2>Shift Registers</h2>
+<p>Data shifts one position each clock cycle. Used for serial-to-parallel conversion:</p>
+<pre>always @(posedge clk)
+  shift_reg <= {shift_reg[6:0], serial_in};</pre>
+
+<blockquote>
+    <p><strong>Exercise:</strong> Build a 4-bit shift register with serial input and parallel output in
+        <code>shift_reg.sv</code>.</p>
+</blockquote>

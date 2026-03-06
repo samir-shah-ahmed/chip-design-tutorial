@@ -1,0 +1,56 @@
+<p>The journey from an idea to a manufactured chip follows a well-defined multi-stage flow. Each stage builds on the
+    previous one, with verification at every step.</p>
+
+<h2>The Chip Design Flow</h2>
+<svg width="460" height="350" viewBox="0 0 460 350" xmlns="http://www.w3.org/2000/svg"
+    style="display:block;max-width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;margin:10px auto">
+    <defs>
+        <marker id="df-a" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#0d6f72" />
+        </marker>
+    </defs>
+    <rect x="150" y="10" width="160" height="35" rx="6" fill="#e8f4f8" stroke="#0d6f72" stroke-width="2" />
+    <text x="230" y="32" text-anchor="middle" fill="#0d6f72" font-weight="bold">1. Specification</text>
+    <line x1="230" y1="45" x2="230" y2="55" stroke="#0d6f72" stroke-width="1.5" marker-end="url(#df-a)" />
+    <rect x="150" y="58" width="160" height="35" rx="6" fill="#e8f4f8" stroke="#0d6f72" stroke-width="2" />
+    <text x="230" y="80" text-anchor="middle" fill="#0d6f72" font-weight="bold">2. Architecture</text>
+    <line x1="230" y1="93" x2="230" y2="103" stroke="#0d6f72" stroke-width="1.5" marker-end="url(#df-a)" />
+    <rect x="150" y="106" width="160" height="35" rx="6" fill="#f0e8f8" stroke="#6b2fa0" stroke-width="2" />
+    <text x="230" y="128" text-anchor="middle" fill="#6b2fa0" font-weight="bold">3. RTL Design</text>
+    <line x1="230" y1="141" x2="230" y2="151" stroke="#0d6f72" stroke-width="1.5" marker-end="url(#df-a)" />
+    <rect x="150" y="154" width="160" height="35" rx="6" fill="#f0e8f8" stroke="#6b2fa0" stroke-width="2" />
+    <text x="230" y="176" text-anchor="middle" fill="#6b2fa0" font-weight="bold">4. Verification</text>
+    <line x1="230" y1="189" x2="230" y2="199" stroke="#0d6f72" stroke-width="1.5" marker-end="url(#df-a)" />
+    <rect x="150" y="202" width="160" height="35" rx="6" fill="#e8f8e8" stroke="#2fa04d" stroke-width="2" />
+    <text x="230" y="224" text-anchor="middle" fill="#2fa04d" font-weight="bold">5. Synthesis</text>
+    <line x1="230" y1="237" x2="230" y2="247" stroke="#0d6f72" stroke-width="1.5" marker-end="url(#df-a)" />
+    <rect x="150" y="250" width="160" height="35" rx="6" fill="#e8f8e8" stroke="#2fa04d" stroke-width="2" />
+    <text x="230" y="272" text-anchor="middle" fill="#2fa04d" font-weight="bold">6. Place & Route</text>
+    <line x1="230" y1="285" x2="230" y2="295" stroke="#0d6f72" stroke-width="1.5" marker-end="url(#df-a)" />
+    <rect x="150" y="298" width="160" height="35" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+    <text x="230" y="320" text-anchor="middle" fill="#d97706" font-weight="bold">7. Tapeout & Fab</text>
+
+    <text x="40" y="128" text-anchor="middle" fill="#6b2fa0" font-size="10">← You write this</text>
+    <text x="420" y="224" text-anchor="middle" fill="#2fa04d" font-size="10">Tools do this →</text>
+</svg>
+
+<h2>Stage Details</h2>
+<ol>
+    <li><strong>Specification</strong> — Define what the chip does, its interfaces, performance targets</li>
+    <li><strong>Architecture</strong> — Block diagram, data paths, control flow, bus architecture</li>
+    <li><strong>RTL Design</strong> — Write Verilog/SystemVerilog code describing the hardware</li>
+    <li><strong>Verification</strong> — Simulate, formal verify, and ensure correctness (60-70% of effort!)</li>
+    <li><strong>Synthesis</strong> — Convert RTL to gate-level netlist using standard cell libraries</li>
+    <li><strong>Place & Route</strong> — Physical layout: place cells, route wires, optimize timing</li>
+    <li><strong>Tapeout</strong> — Final sign-off checks, generate GDSII masks for fabrication</li>
+</ol>
+
+<blockquote>
+    <p><strong>Key insight:</strong> Verification consumes the majority of chip design effort. A bug found at tapeout
+        costs millions to fix. A bug found in simulation costs minutes.</p>
+</blockquote>
+
+<blockquote>
+    <p><strong>Exercise:</strong> Examine the RTL code in the editor. This is a simple design that would go through the
+        entire flow above.</p>
+</blockquote>

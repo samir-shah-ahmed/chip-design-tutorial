@@ -1,0 +1,49 @@
+<p><dfn
+        data-card="Boolean algebra is the mathematical foundation of digital logic. It uses variables that can only be TRUE (1) or FALSE (0), combined with AND, OR, and NOT operations. Every digital circuit can be expressed as a Boolean function.">Boolean
+        algebra</dfn> is the mathematics behind every logic gate, every processor, and every digital circuit ever made.
+</p>
+
+<h2>Fundamental Laws</h2>
+<svg width="440" height="280" viewBox="0 0 440 280" xmlns="http://www.w3.org/2000/svg"
+    style="display:block;max-width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;margin:10px auto">
+    <rect x="10" y="10" width="200" height="260" rx="8" fill="#e8f4f8" stroke="#0d6f72" stroke-width="2" />
+    <text x="110" y="35" text-anchor="middle" font-weight="bold" fill="#0d6f72" font-size="13">Basic Laws</text>
+    <text x="20" y="60" fill="#3d9fa3">Identity: A·1=A, A+0=A</text>
+    <text x="20" y="80" fill="#3d9fa3">Null: A·0=0, A+1=1</text>
+    <text x="20" y="100" fill="#3d9fa3">Idempotent: A·A=A, A+A=A</text>
+    <text x="20" y="120" fill="#3d9fa3">Complement: A·A'=0, A+A'=1</text>
+    <text x="20" y="140" fill="#3d9fa3">Commutative: A·B=B·A</text>
+    <text x="20" y="160" fill="#3d9fa3">Associative: (A·B)·C=A·(B·C)</text>
+    <text x="20" y="180" fill="#3d9fa3">Distributive: A·(B+C)=A·B+A·C</text>
+    <text x="20" y="200" fill="#3d9fa3">Absorption: A+A·B=A</text>
+
+    <rect x="230" y="10" width="200" height="120" rx="8" fill="#f0e8f8" stroke="#6b2fa0" stroke-width="2" />
+    <text x="330" y="35" text-anchor="middle" font-weight="bold" fill="#6b2fa0" font-size="13">De Morgan's Laws</text>
+    <text x="240" y="65" fill="#8b5fbf" font-size="12">(A · B)' = A' + B'</text>
+    <text x="240" y="90" fill="#8b5fbf" font-size="12">(A + B)' = A' · B'</text>
+    <text x="240" y="115" fill="#8b5fbf" font-size="10">Break the bar, change the sign</text>
+
+    <rect x="230" y="150" width="200" height="120" rx="8" fill="#e8f8e8" stroke="#2fa04d" stroke-width="2" />
+    <text x="330" y="175" text-anchor="middle" font-weight="bold" fill="#2fa04d" font-size="13">In Verilog</text>
+    <text x="240" y="200" fill="#4dbf5f">~(a & b) == (~a | ~b)</text>
+    <text x="240" y="220" fill="#4dbf5f">~(a | b) == (~a & ~b)</text>
+    <text x="240" y="245" fill="#4dbf5f" font-size="10">NAND/NOR are universal</text>
+</svg>
+
+<h2>Sum of Products (SOP)</h2>
+<p>Any Boolean function can be expressed as an OR of AND terms (minterms):</p>
+<pre>F = A'B'C + A'BC + ABC'
+// In Verilog: assign f = (~a & ~b & c) | (~a & b & c) | (a & b & ~c);</pre>
+
+<h2>Karnaugh Maps (K-Maps)</h2>
+<p>A visual tool for simplifying Boolean expressions. Group adjacent 1s in powers of 2 to find minimal SOP form:</p>
+<pre>// 2-variable K-map for F(A,B):
+//        B=0  B=1
+// A=0 |  1  |  0  |
+// A=1 |  1  |  1  |
+// Groups: {00,10}=B', {10,11}=A → F = A + B'</pre>
+
+<blockquote>
+    <p><strong>Exercise:</strong> Implement De Morgan's law verification in <code>demorgan.sv</code>. Show that
+        <code>~(a & b)</code> equals <code>(~a | ~b)</code> for all inputs.</p>
+</blockquote>

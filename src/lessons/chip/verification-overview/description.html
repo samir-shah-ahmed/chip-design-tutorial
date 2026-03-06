@@ -1,0 +1,59 @@
+<p><dfn
+        data-card="Verification is the process of ensuring a design behaves correctly — that the RTL matches the specification. It's the largest effort in chip design (60-70% of project time). Modern verification uses simulation, formal methods, emulation, and coverage-driven approaches.">Verification</dfn>
+    is the most critical and time-consuming phase of chip design. An undetected bug that reaches silicon can cost
+    millions to fix.</p>
+
+<h2>Verification Approaches</h2>
+<svg width="460" height="160" viewBox="0 0 460 160" xmlns="http://www.w3.org/2000/svg"
+    style="display:block;max-width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;margin:10px auto">
+    <rect x="10" y="10" width="130" height="140" rx="8" fill="#e8f4f8" stroke="#0d6f72" stroke-width="2" />
+    <text x="75" y="35" text-anchor="middle" font-weight="bold" fill="#0d6f72" font-size="12">Simulation</text>
+    <text x="75" y="55" text-anchor="middle" fill="#3d9fa3" font-size="10">Run test vectors</text>
+    <text x="75" y="72" text-anchor="middle" fill="#3d9fa3" font-size="10">Check waveforms</text>
+    <text x="75" y="89" text-anchor="middle" fill="#3d9fa3" font-size="10">Most common</text>
+    <text x="75" y="106" text-anchor="middle" fill="#3d9fa3" font-size="10">Can miss bugs</text>
+
+    <rect x="165" y="10" width="130" height="140" rx="8" fill="#f0e8f8" stroke="#6b2fa0" stroke-width="2" />
+    <text x="230" y="35" text-anchor="middle" font-weight="bold" fill="#6b2fa0" font-size="12">Formal</text>
+    <text x="230" y="55" text-anchor="middle" fill="#8b5fbf" font-size="10">Mathematical proof</text>
+    <text x="230" y="72" text-anchor="middle" fill="#8b5fbf" font-size="10">Exhaustive check</text>
+    <text x="230" y="89" text-anchor="middle" fill="#8b5fbf" font-size="10">Assertions (SVA)</text>
+    <text x="230" y="106" text-anchor="middle" fill="#8b5fbf" font-size="10">Limited scaling</text>
+
+    <rect x="320" y="10" width="130" height="140" rx="8" fill="#e8f8e8" stroke="#2fa04d" stroke-width="2" />
+    <text x="385" y="35" text-anchor="middle" font-weight="bold" fill="#2fa04d" font-size="12">Emulation</text>
+    <text x="385" y="55" text-anchor="middle" fill="#4dbf5f" font-size="10">FPGA prototyping</text>
+    <text x="385" y="72" text-anchor="middle" fill="#4dbf5f" font-size="10">Real-time speed</text>
+    <text x="385" y="89" text-anchor="middle" fill="#4dbf5f" font-size="10">Run real software</text>
+    <text x="385" y="106" text-anchor="middle" fill="#4dbf5f" font-size="10">Expensive</text>
+</svg>
+
+<h2>Coverage-Driven Verification</h2>
+<p>Instead of hoping your tests hit all corner cases, measure <strong>coverage</strong> — what percentage of the design
+    space has been exercised.</p>
+<ul>
+    <li><strong>Code Coverage</strong> — Which lines/branches were executed? (automated)</li>
+    <li><strong>Functional Coverage</strong> — Which design scenarios were hit? (manually defined)</li>
+    <li><strong>Toggle Coverage</strong> — Which signals changed value?</li>
+</ul>
+
+<h2>Assertions (SVA)</h2>
+<pre>// SystemVerilog Assertion: req must be followed by ack within 5 cycles
+property req_ack;
+  @(posedge clk) req |-> ##[1:5] ack;
+endproperty
+assert property (req_ack) else $error("Ack timeout!");</pre>
+
+<h2>The Verification Plan</h2>
+<ol>
+    <li>Define all features and scenarios to test</li>
+    <li>Write directed tests for basic functionality</li>
+    <li>Add constrained random tests for corner cases</li>
+    <li>Measure coverage and add tests to close gaps</li>
+    <li>Run regression: all tests pass on every code change</li>
+</ol>
+
+<blockquote>
+    <p><strong>Exercise:</strong> Write a self-checking testbench in <code>verify.sv</code> that tests the provided FIFO
+        module thoroughly, including edge cases like full and empty conditions.</p>
+</blockquote>

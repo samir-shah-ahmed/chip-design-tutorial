@@ -1,0 +1,59 @@
+<p>Digital systems represent all information as binary — ones and zeros. Understanding number systems is the foundation
+    of everything in chip design.</p>
+
+<h2>Base Systems</h2>
+<svg width="480" height="120" viewBox="0 0 480 120" xmlns="http://www.w3.org/2000/svg"
+    style="display:block;max-width:100%;font-family:'IBM Plex Mono',monospace;font-size:12px;margin:10px auto">
+    <rect x="10" y="10" width="100" height="100" rx="8" fill="#e8f4f8" stroke="#0d6f72" stroke-width="2" />
+    <text x="60" y="35" text-anchor="middle" font-weight="bold" fill="#0d6f72">Binary</text>
+    <text x="60" y="55" text-anchor="middle" fill="#3d9fa3" font-size="11">Base 2</text>
+    <text x="60" y="75" text-anchor="middle" fill="#3d9fa3" font-size="11">Digits: 0, 1</text>
+    <text x="60" y="95" text-anchor="middle" fill="#3d9fa3" font-size="11">4'b1010</text>
+
+    <rect x="130" y="10" width="100" height="100" rx="8" fill="#f0e8f8" stroke="#6b2fa0" stroke-width="2" />
+    <text x="180" y="35" text-anchor="middle" font-weight="bold" fill="#6b2fa0">Octal</text>
+    <text x="180" y="55" text-anchor="middle" fill="#8b5fbf" font-size="11">Base 8</text>
+    <text x="180" y="75" text-anchor="middle" fill="#8b5fbf" font-size="11">Digits: 0–7</text>
+    <text x="180" y="95" text-anchor="middle" fill="#8b5fbf" font-size="11">4'o12</text>
+
+    <rect x="250" y="10" width="100" height="100" rx="8" fill="#e8f8e8" stroke="#2fa04d" stroke-width="2" />
+    <text x="300" y="35" text-anchor="middle" font-weight="bold" fill="#2fa04d">Decimal</text>
+    <text x="300" y="55" text-anchor="middle" fill="#4dbf5f" font-size="11">Base 10</text>
+    <text x="300" y="75" text-anchor="middle" fill="#4dbf5f" font-size="11">Digits: 0–9</text>
+    <text x="300" y="95" text-anchor="middle" fill="#4dbf5f" font-size="11">4'd10</text>
+
+    <rect x="370" y="10" width="100" height="100" rx="8" fill="#f8ece8" stroke="#a05f2f" stroke-width="2" />
+    <text x="420" y="35" text-anchor="middle" font-weight="bold" fill="#a05f2f">Hex</text>
+    <text x="420" y="55" text-anchor="middle" fill="#bf8b5f" font-size="11">Base 16</text>
+    <text x="420" y="75" text-anchor="middle" fill="#bf8b5f" font-size="11">Digits: 0–F</text>
+    <text x="420" y="95" text-anchor="middle" fill="#bf8b5f" font-size="11">4'hA</text>
+</svg>
+
+<h2>Verilog Number Notation</h2>
+<pre>8'b10101010   // 8-bit binary = 170
+8'hAA         // 8-bit hex = 170
+8'd170        // 8-bit decimal = 170
+8'o252        // 8-bit octal = 170</pre>
+<p>Format: <code>&lt;size&gt;'&lt;base&gt;&lt;value&gt;</code> where base is <code>b</code> (binary), <code>o</code>
+    (octal), <code>d</code> (decimal), or <code>h</code> (hex).</p>
+
+<h2>Signed vs Unsigned</h2>
+<p>By default, Verilog treats all values as <strong>unsigned</strong>. For signed arithmetic, use <code>signed</code>:
+</p>
+<pre>reg signed [7:0] temp;  // -128 to +127
+reg [7:0] utemp;        // 0 to 255</pre>
+
+<h2>Two's Complement</h2>
+<p>Negative numbers are represented in <dfn
+        data-card="Two's complement is the standard way to represent signed integers in hardware. To negate a number: invert all bits and add 1. Example: +5 = 0101, -5 = 1010 + 1 = 1011. The MSB acts as the sign bit (0=positive, 1=negative). An N-bit two's complement number ranges from -2^(N-1) to +2^(N-1)-1.">two's
+        complement</dfn>:</p>
+<pre>// 4-bit examples:
+// 0101 = +5
+// 1011 = -5 (invert: 0100, add 1: 0101 → negated)
+// Range for N bits: -2^(N-1) to +2^(N-1)-1
+// 4-bit: -8 to +7</pre>
+
+<blockquote>
+    <p><strong>Exercise:</strong> Complete the module in <code>converter.sv</code> to display various number
+        representations using <code>$display</code>.</p>
+</blockquote>

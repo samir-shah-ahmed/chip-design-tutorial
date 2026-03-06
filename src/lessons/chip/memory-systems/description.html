@@ -1,0 +1,44 @@
+<p>Memory is how digital systems store data. From CPU registers to hard drives, the memory hierarchy trades off speed,
+    size, and cost.</p>
+
+<h2>Memory Hierarchy</h2>
+<svg width="400" height="220" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg"
+    style="display:block;max-width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;margin:10px auto">
+    <polygon points="200,10 350,200 50,200" fill="#e8f4f8" stroke="#0d6f72" stroke-width="2" />
+    <text x="200" y="50" text-anchor="middle" font-weight="bold" fill="#0d6f72" font-size="11">Registers</text>
+    <text x="200" y="80" text-anchor="middle" fill="#3d9fa3" font-size="10">L1 Cache (~1ns)</text>
+    <text x="200" y="105" text-anchor="middle" fill="#3d9fa3" font-size="10">L2/L3 Cache (~5-20ns)</text>
+    <text x="200" y="135" text-anchor="middle" fill="#3d9fa3" font-size="10">Main Memory / DRAM (~50-100ns)</text>
+    <text x="200" y="165" text-anchor="middle" fill="#3d9fa3" font-size="10">SSD / Flash (~100μs)</text>
+    <text x="200" y="190" text-anchor="middle" fill="#3d9fa3" font-size="10">HDD (~10ms)</text>
+    <text x="60" y="120" text-anchor="end" fill="#888" font-size="10">←Fast</text>
+    <text x="60" y="140" text-anchor="end" fill="#888" font-size="10"> Small</text>
+    <text x="340" y="180" fill="#888" font-size="10">Slow→</text>
+    <text x="340" y="196" fill="#888" font-size="10">Large</text>
+</svg>
+
+<h2>SRAM vs DRAM</h2>
+<ul>
+    <li><strong>SRAM</strong> (Static RAM) — Uses 6 transistors per bit. Fast, doesn't need refresh. Used in caches.
+    </li>
+    <li><strong>DRAM</strong> (Dynamic RAM) — Uses 1 transistor + 1 capacitor per bit. Cheap, dense, needs periodic
+        refresh. Used for main memory.</li>
+</ul>
+
+<h2>ROM Types</h2>
+<p><strong>ROM</strong> (Read-Only Memory), <strong>PROM</strong> (Programmable), <strong>EPROM</strong> (Erasable),
+    <strong>EEPROM</strong> (Electrically Erasable), <strong>Flash</strong> (block-erasable EEPROM).</p>
+
+<h2>Modeling Memory in Verilog</h2>
+<pre>reg [7:0] mem [0:255];  // 256 x 8-bit memory
+
+always @(posedge clk) begin
+  if (write_en)
+    mem[addr] <= data_in;
+  data_out <= mem[addr];  // synchronous read
+end</pre>
+
+<blockquote>
+    <p><strong>Exercise:</strong> Complete a simple RAM module in <code>ram.sv</code> with synchronous read/write and 16
+        locations of 8 bits each.</p>
+</blockquote>

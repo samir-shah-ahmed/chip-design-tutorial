@@ -1,0 +1,82 @@
+<p>There are two paths to silicon: <dfn
+        data-card="An FPGA (Field-Programmable Gate Array) is a chip with configurable logic blocks and routing. You program it after manufacturing. An ASIC (Application-Specific Integrated Circuit) is custom-manufactured silicon optimized for one specific function. ASICs are faster and more power-efficient but cost millions to develop.">FPGAs
+        and ASICs</dfn>. Understanding both is essential for any chip designer.</p>
+
+<h2>FPGA Architecture</h2>
+<svg width="340" height="200" viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg"
+    style="display:block;max-width:100%;font-family:'IBM Plex Mono',monospace;font-size:10px;margin:10px auto">
+    <rect x="10" y="10" width="320" height="180" rx="8" fill="#e8f4f8" stroke="#0d6f72" stroke-width="2" />
+    <text x="170" y="30" text-anchor="middle" font-weight="bold" fill="#0d6f72" font-size="13">FPGA Fabric</text>
+    <rect x="30" y="45" width="60" height="40" rx="4" fill="#fff" stroke="#0d6f72" stroke-width="1" />
+    <text x="60" y="67" text-anchor="middle" fill="#0d6f72" font-size="9">CLB</text>
+    <rect x="140" y="45" width="60" height="40" rx="4" fill="#fff" stroke="#0d6f72" stroke-width="1" />
+    <text x="170" y="67" text-anchor="middle" fill="#0d6f72" font-size="9">CLB</text>
+    <rect x="250" y="45" width="60" height="40" rx="4" fill="#fff" stroke="#0d6f72" stroke-width="1" />
+    <text x="280" y="67" text-anchor="middle" fill="#0d6f72" font-size="9">CLB</text>
+    <rect x="30" y="110" width="60" height="40" rx="4" fill="#f0e8f8" stroke="#6b2fa0" stroke-width="1" />
+    <text x="60" y="128" text-anchor="middle" fill="#6b2fa0" font-size="9">Block</text>
+    <text x="60" y="140" text-anchor="middle" fill="#6b2fa0" font-size="9">RAM</text>
+    <rect x="140" y="110" width="60" height="40" rx="4" fill="#e8f8e8" stroke="#2fa04d" stroke-width="1" />
+    <text x="170" y="128" text-anchor="middle" fill="#2fa04d" font-size="9">DSP</text>
+    <text x="170" y="140" text-anchor="middle" fill="#2fa04d" font-size="9">Block</text>
+    <rect x="250" y="110" width="60" height="40" rx="4" fill="#fff" stroke="#0d6f72" stroke-width="1" />
+    <text x="280" y="132" text-anchor="middle" fill="#0d6f72" font-size="9">CLB</text>
+    <text x="170" y="175" text-anchor="middle" fill="#888" font-size="10">CLB = Configurable Logic Block (LUTs +
+        FFs)</text>
+</svg>
+
+<ul>
+    <li><strong>LUTs</strong> (Look-Up Tables) — Implement any N-input Boolean function</li>
+    <li><strong>Flip-Flops</strong> — Storage elements in each CLB</li>
+    <li><strong>Block RAM</strong> — Dedicated memory blocks</li>
+    <li><strong>DSP Slices</strong> — Hardened multiply-accumulate units</li>
+    <li><strong>Routing</strong> — Programmable interconnect between blocks</li>
+</ul>
+
+<h2>ASIC Design Flow</h2>
+<pre>RTL Code → Synthesis → Gate-level Netlist → Place & Route
+→ Timing Closure → Verification → Tapeout → Fabrication</pre>
+
+<h2>Comparison</h2>
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+    <tr>
+        <th style="border:1px solid #ddd;padding:6px;text-align:left">Aspect</th>
+        <th style="border:1px solid #ddd;padding:6px">FPGA</th>
+        <th style="border:1px solid #ddd;padding:6px">ASIC</th>
+    </tr>
+    <tr>
+        <td style="border:1px solid #ddd;padding:6px">NRE Cost</td>
+        <td style="border:1px solid #ddd;padding:6px;text-align:center">Low ($0-10K)</td>
+        <td style="border:1px solid #ddd;padding:6px;text-align:center">Very High ($1M+)</td>
+    </tr>
+    <tr>
+        <td style="border:1px solid #ddd;padding:6px">Unit Cost</td>
+        <td style="border:1px solid #ddd;padding:6px;text-align:center">High</td>
+        <td style="border:1px solid #ddd;padding:6px;text-align:center">Low at volume</td>
+    </tr>
+    <tr>
+        <td style="border:1px solid #ddd;padding:6px">Performance</td>
+        <td style="border:1px solid #ddd;padding:6px;text-align:center">Good</td>
+        <td style="border:1px solid #ddd;padding:6px;text-align:center">Best</td>
+    </tr>
+    <tr>
+        <td style="border:1px solid #ddd;padding:6px">Power</td>
+        <td style="border:1px solid #ddd;padding:6px;text-align:center">Higher</td>
+        <td style="border:1px solid #ddd;padding:6px;text-align:center">Lower</td>
+    </tr>
+    <tr>
+        <td style="border:1px solid #ddd;padding:6px">Time to Market</td>
+        <td style="border:1px solid #ddd;padding:6px;text-align:center">Days-Weeks</td>
+        <td style="border:1px solid #ddd;padding:6px;text-align:center">Months-Years</td>
+    </tr>
+    <tr>
+        <td style="border:1px solid #ddd;padding:6px">Reprogrammable</td>
+        <td style="border:1px solid #ddd;padding:6px;text-align:center">✓ Yes</td>
+        <td style="border:1px solid #ddd;padding:6px;text-align:center">✗ No</td>
+    </tr>
+</table>
+
+<blockquote>
+    <p><strong>Exercise:</strong> The starter code implements a small design. Think about how a synthesis tool would map
+        it to an FPGA's LUTs and flip-flops.</p>
+</blockquote>
