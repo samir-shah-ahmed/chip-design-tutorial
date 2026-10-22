@@ -12,6 +12,55 @@ export default {
   'verilog/if-case': { title: 'Conditional Statements', focus: '/src/alu.sv' },
   'verilog/testbench': { title: 'Writing a Testbench', focus: '/src/tb.sv', top: 'top' },
 
+
+  'verilog/logic-basics': { title: 'Logic Gates in Verilog', focus: '/src/full_adder.sv' },
+  'verilog/blocking': { title: 'Blocking and Non-Blocking', focus: '/src/exch.sv' },
+  'verilog/sequential': { title: 'Registers and Counters', focus: '/src/counter.sv' },
+  'verilog/fsm': { title: 'A Sequence Detector', focus: '/src/seq101.sv' },
+  'verilog/parameters': { title: 'Parameterized Widths', focus: '/src/add.sv' },
+  'verilog/generate': { title: 'Generate', focus: '/src/ripple.sv' },
+  'verilog/memories': { title: 'Memories', focus: '/src/ram.sv' },
+  'verilog/clock-domains': { title: 'Clock Domain Crossing', focus: '/src/sync2.sv' },
+
+  // ── FPGA design ───────────────────────────────────────────────────────────
+  'fpga/architecture': { title: 'LUTs, Flip-Flops, and Hard Blocks', focus: '/src/lut_mux.sv' },
+  'fpga/flow': { title: 'Synthesis, Place and Route', focus: '/src/tick.sv' },
+  'fpga/timing': { title: 'Timing Closure', focus: '/src/pipe.sv' },
+  'fpga/resources': { title: 'Resource-Aware RTL', focus: '/src/mac.sv' },
+  'fpga/clocking': { title: 'Clocks and Clock Enables', focus: '/src/enable_div.sv' },
+  'fpga/debug': { title: 'Debugging on the Board', focus: '/src/probe.sv' },
+
+  // ── ASIC design ───────────────────────────────────────────────────────────
+  'asic/rtl-to-gds': { title: 'RTL to GDSII', focus: '/src/alu_add.sv' },
+  'asic/stdcells': { title: 'Standard Cells and PDKs', focus: '/src/xor2.sv' },
+  'asic/synthesis': { title: 'Logic Synthesis', focus: '/src/mux2.sv' },
+  'asic/pnr': { title: 'Floorplan, Place, CTS, Route', focus: '/src/shift2.sv' },
+  'asic/sta': { title: 'Static Timing', focus: '/src/add_reg.sv' },
+  'asic/signoff': { title: 'DRC, LVS, and Signoff', focus: '/src/impl.sv' },
+  'asic/dft': { title: 'Scan and Design for Test', focus: '/src/scan_ff.sv' },
+  'asic/tradeoffs': { title: 'Power, Area, and Timing', focus: '/src/hold.sv' },
+  'asic/open-tools': { title: 'OpenLane and Tiny Tapeout', focus: '/src/tt_um_counter.sv' },
+  'asic/same-rtl': { title: 'Same RTL, Two Flows', focus: '/src/counter_ce.sv' },
+
+  // ── Tang Nano and Sipeed boards ───────────────────────────────────────────
+  'boards/nano9k-overview': { title: 'Tang Nano 9K Overview', focus: '/src/top.sv', top: 'top' },
+  'boards/nano9k-blink': { title: 'Tang Nano 9K Blinky', focus: '/src/blink.sv' },
+  'boards/nano9k-buttons': { title: 'Tang Nano 9K Buttons', focus: '/src/debounce.sv' },
+  'boards/nano9k-uart': { title: 'Tang Nano 9K UART', focus: '/src/uart_tx.sv' },
+  'boards/nano9k-pwm': { title: 'Tang Nano 9K PWM', focus: '/src/pwm.sv' },
+  'boards/nano9k-display': { title: 'Tang Nano 9K HDMI and LCD', focus: '/src/hsync_gen.sv' },
+  'boards/nano20k-overview': { title: 'Tang Nano 20K Overview', focus: '/src/top.sv', top: 'top' },
+  'boards/nano20k-blink': { title: 'Tang Nano 20K Blinky', focus: '/src/blink.sv' },
+  'boards/nano20k-buttons': { title: 'Tang Nano 20K Buttons', focus: '/src/debounce.sv' },
+  'boards/nano20k-uart': { title: 'Tang Nano 20K UART', focus: '/src/uart_tx.sv' },
+  'boards/nano20k-pwm': { title: 'Tang Nano 20K PWM', focus: '/src/pwm.sv' },
+  'boards/nano20k-hdmi': { title: 'Tang Nano 20K HDMI', focus: '/src/hsync_gen.sv' },
+  'boards/nano4k-overview': { title: 'Tang Nano 4K Overview', focus: '/src/top.sv', top: 'top' },
+  'boards/nano4k-blink': { title: 'Tang Nano 4K Blinky', focus: '/src/blink.sv' },
+  'boards/nano1k-overview': { title: 'Tang Nano 1K Overview', focus: '/src/top.sv', top: 'top' },
+  'boards/nano1k-blink': { title: 'Tang Nano 1K Blinky', focus: '/src/blink.sv' },
+  'boards/primer20k': { title: 'Tang Primer 20K', focus: '/src/top.sv', top: 'top' },
+
   // ── SystemVerilog Basics ───────────────────────────────────────────────────
   'sv/welcome': { title: 'Welcome', focus: '/src/top.sv', top: 'top' },
   'sv/modules-and-ports': { title: 'Modules and Ports', focus: '/src/adder.sv' },

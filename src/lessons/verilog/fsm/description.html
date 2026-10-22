@@ -1,0 +1,11 @@
+<p>A finite state machine is a register that stores which step you are in, plus combinational logic that picks the next step from the current step and the inputs. This lesson is a Moore detector for the bit sequence <code>101</code>: the <code>hit</code> output depends only on the state, and the state register updates on the clock.</p>
+<ul>
+  <li><code>S0</code> idle, <code>S1</code> saw <code>1</code>, <code>S2</code> saw <code>10</code>, <code>S3</code> saw <code>101</code> and raises <code>hit</code>.</li>
+  <li>One <code>always @(posedge clk)</code> block holds the state. One <code>always @(*)</code> block computes the next state. Keep the assignments in the combinational block blocking.</li>
+  <li>Every state in the <code>case</code> needs a next state, including the ones you hope never happen (<code>default</code>). A missing branch becomes a latch.</li>
+</ul>
+<blockquote><p><strong>Exercise:</strong> Fill in state <code>S2</code>. Feed the bits <code>1</code>, <code>0</code>, <code>1</code>. The testbench should print <code>PASS hit after 101</code>.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://standards.ieee.org/ieee/1364/3641/">IEEE 1364, case and always procedures</a></li>
+</ul>

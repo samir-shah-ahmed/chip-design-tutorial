@@ -1,0 +1,9 @@
+<p>Design for test makes a manufactured chip observable. Stuck-at faults inside a block of combinational logic are tested by shifting a pattern into the flip-flops, clocking once in functional mode, and shifting the result out. That is a scan chain.</p>
+<p>Each scan flip-flop is the functional flip-flop plus a mux on the data pin: <code>se</code> (scan enable) selects <code>si</code> (scan in) instead of <code>d</code>. The <code>q</code> of one cell feeds <code>si</code> of the next. Automatic test pattern generation (ATPG) writes the patterns. The scan mux is not free: it adds delay on the functional path, which is why scan insertion is done before timing closure, not after.</p>
+<p>Boundary scan (IEEE 1149.1, JTAG) is a related but different chain around the pins, used to test the board. The Tang Nano debugger uses JTAG to program the FPGA. That is not the scan chain inside an ASIC you taped out.</p>
+<blockquote><p><strong>Exercise:</strong> Mux <code>si</code> onto the flip-flop when <code>se</code> is high. The testbench shifts in a 1, then writes a functional 0.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://www.cmossvlsi.com/">Weste and Harris, CMOS VLSI Design (scan and manufacturing test)</a></li>
+  <li><a href="https://standards.ieee.org/ieee/1149.1/4488/">IEEE 1149.1 (boundary scan, distinct from internal scan)</a></li>
+</ul>

@@ -1,0 +1,7 @@
+<p>When a signal is produced by one clock and sampled by another, it is asynchronous to the receiving clock. Sampling it in one flip-flop can capture a value in between 0 and 1. That metastable voltage usually resolves, but the resolution time is unbounded, so the next flip-flop is there to give it a full cycle.</p>
+<p>The two-flop synchronizer is the usual circuit for a <em>single bit</em> level. It does not move a multi-bit bus safely: each bit can resolve on a different clock, and the bus can be sampled as a value that never existed. Buses need a handshake, a FIFO, or a holding register with one synchronized ready bit.</p>
+<blockquote><p><strong>Exercise:</strong> Wire the two flip-flops. <code>async_in</code> rises just after an edge. <code>sync_out</code> must still be 0 one clock later, and 1 on the clock after that.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="http://www.sunburst-design.com/papers/CummingsSNUG2008Boston_CDC.pdf">Clifford E. Cummings, Clock Domain Crossing Design & Verification Techniques Using SystemVerilog, SNUG 2008</a></li>
+</ul>

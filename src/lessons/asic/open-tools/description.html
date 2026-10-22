@@ -1,0 +1,18 @@
+<p>You can run the ASIC flow on your own machine with open tools, and you can put a design on a real shuttle without a commercial license.</p>
+<ul>
+  <li><strong>Yosys</strong> synthesizes the RTL.</li>
+  <li><strong>OpenROAD</strong> floorplans, places, builds the clock tree, routes, and writes timing and layout artifacts.</li>
+  <li><strong>OpenLane</strong> is the shell that runs Yosys, OpenROAD, and the magic/klayout checks from one configuration file. The classic target is sky130. Current OpenLane also targets IHP SG13G2.</li>
+  <li><strong>Tiny Tapeout</strong> pools many small designs into one shuttle. You supply a top module with the port list Tiny Tapeout documents (dedicated inputs <code>ui_in</code>, dedicated outputs <code>uo_out</code>, bidirectional <code>uio_*</code>, <code>ena</code>, <code>clk</code>, <code>rst_n</code>). Their template repository is the contract to copy. The module in this lesson uses that port list so the simulator can exercise it. Submitting it still means following the current Tiny Tapeout template, because the port list has been stable but the surrounding files (info.yaml, the wrapper, the PDK) move with each shuttle.</li>
+</ul>
+<p>This app does not bundle a PDK or OpenROAD. Those installs are large, and the SkyWater and IHP licenses are their own documents. The lesson is the RTL you would drop into that template, checked here before you spend a flow run.</p>
+<blockquote><p><strong>Exercise:</strong> Increment <code>uo_out</code> while <code>ena</code> and <code>rst_n</code> are high. Four clocks should leave the output at 4.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://tinytapeout.com/">Tiny Tapeout</a></li>
+  <li><a href="https://github.com/TinyTapeout/tt-support-tools">Tiny Tapeout support tools and project template</a></li>
+  <li><a href="https://openlane.readthedocs.io/en/latest/">OpenLane</a></li>
+  <li><a href="https://openroad.readthedocs.io/en/latest/">OpenROAD</a></li>
+  <li><a href="https://skywater-pdk.readthedocs.io/en/main/">SkyWater sky130 PDK</a></li>
+  <li><a href="https://github.com/IHP-GmbH/IHP-Open-PDK">IHP Open PDK</a></li>
+</ul>

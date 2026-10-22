@@ -1,0 +1,13 @@
+<p>Same counter as the 9K blinky, on the 20K's pins. Sipeed's blink article puts the 27 MHz oscillator on pin 4 and LED0 on pin 15. LiteX names six active-low LEDs on pins 15 through 20. The module is six bits wide so it matches that bus; if you have only confirmed LED0, constrain bit 0 and leave the other bits off the CST until you have checked the schematic (nextpnr errors if a top-level port has no <code>IO_LOC</code>).</p>
+<pre>IO_LOC "clk" 4;
+IO_PORT "clk" IO_TYPE=LVCMOS33;
+IO_LOC "led[0]" 15;
+IO_PORT "led[0]" IO_TYPE=LVCMOS33 PULL_MODE=UP;</pre>
+<p>Half a second at 27 MHz is the 13&nbsp;499&nbsp;999 count from that Sipeed article. Keep <code>LIMIT</code> at 4 while you simulate.</p>
+<blockquote><p><strong>Exercise:</strong> Toggle <code>led</code> at <code>LIMIT</code>.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/tang-nano-20k/example/led.html">Sipeed Tang Nano 20K blink</a></li>
+  <li><a href="https://github.com/litex-hub/litex-boards/blob/master/litex_boards/platforms/sipeed_tang_nano_20k.py">LiteX Tang Nano 20K platform</a></li>
+  <li><a href="https://github.com/YosysHQ/apicula/wiki/Nextpnr%E2%80%90Himbaechel-Gowin">Apicula device table</a></li>
+</ul>

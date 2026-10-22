@@ -1,0 +1,14 @@
+<p>UART is the bring-up port on these boards: the USB debugger bridges a serial port to two FPGA pins. A byte on the wire is a low start bit, eight data bits LSB first, and a high stop bit. The line idles high.</p>
+<p>The Sipeed/Lushay Tang Nano 9K article uses <code>DELAY_FRAMES = 234</code> because 27&nbsp;000&nbsp;000 / 115200 is about 234.4. Integer 234 is the divisor they publish (27e6/234 is about 115385 baud). This simulation uses <code>BIT_TICKS = 4</code> so the start bit arrives quickly. On the board, change the parameter to 234 for 115200 baud at 27 MHz, or derive it from the real clock if you use the MS5351 on the 20K.</p>
+<p><strong>Pin conflict to resolve on the schematic, not by guessing:</strong> the same 9K article's CST assigns the port it names <code>uart_tx</code> to pin 17 and <code>uart_rx</code> to pin 18, both <code>LVCMOS33</code>. The paragraph under that CST says the opposite direction (receive on 17, send on 18). Both sentences are in that article. The schematic net into the BL702 is the tie-break. The article does say those pins go to the BL702 onboard debugger.</p>
+<pre>IO_LOC "uart_tx" 17;
+IO_PORT "uart_tx" IO_TYPE=LVCMOS33;
+IO_LOC "uart_rx" 18;
+IO_PORT "uart_rx" IO_TYPE=LVCMOS33;</pre>
+<p>For the 20K, the LiteX platform file uses serial RX on pin 70 and TX on pin 69, LVCMOS33. That is a secondary source. Check the 20K schematic before flashing.</p>
+<blockquote><p><strong>Exercise:</strong> Drive <code>tx</code> from <code>shifter[0]</code> and shift the byte right. The testbench sends <code>8'h00</code>. The start bit must be 0, and the first data bit after it must also be 0.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/zh/tang/Tang-Nano-9K/examples/lushaylabs/2_debugging_uart/debugging_uart.html">Sipeed / Lushay Tang Nano 9K UART article (234 clocks, pins 17 and 18, BL702)</a></li>
+  <li><a href="https://github.com/litex-hub/litex-boards/blob/master/litex_boards/platforms/sipeed_tang_nano_20k.py">LiteX Tang Nano 20K platform (serial pins 69 and 70)</a></li>
+</ul>

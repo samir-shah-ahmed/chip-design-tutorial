@@ -1,0 +1,20 @@
+<p>Sipeed's FAQ lists the Tang Nano 4K as GW1NSR-4C, package QN48P, speed C6/I5 or C7/I6. Apicula's nextpnr table lists <code>GW1NSR-LV4CQN48PC7/I6</code>. Match the speed grade to the chip you have.</p>
+<p>The English Sipeed blink page table is:</p>
+<ul>
+  <li><code>sys_clk</code> pin 45</li>
+  <li><code>sys_rst_n</code> pin 15</li>
+  <li><code>led</code> pin 10</li>
+</ul>
+<p>An older Chinese copy of a 4K blink page lists the LED on pin 15 in one table, which is the same number that table gives the reset. The English page and a published CST that names the part <code>GW1NSR-LV4CQN48PC7/I6</code> both use pin 10 for the LED. Prefer pin 10, and look at the 4K schematic if the LED does not move. The English page also says pin 10 is a MODE pin: enable "Use MODE as regular IO" (the page also mentions DONE in one sentence; the constraint section is the MODE checkbox).</p>
+<p>The 4K has enough I/O for HDMI examples in Sipeed's <code>TangNano-4K-example</code> repository (camera and 720p demos). Copy those CSTs from that repository rather than from this page.</p>
+<p>Use the open-source command shape from the Tang Nano 9K overview with <code>--device GW1NSR-LV4CQN48PC7/I6</code> and <code>openFPGALoader -b tangnano4k</code>. Apicula's table does not require a <code>family</code> flag for this part.</p>
+
+<blockquote><p><strong>Exercise:</strong> In <code>top.sv</code>, print <code>Tang Nano 4K</code> and finish. This only checks that the simulator is alive. The pins and commands are in the text.</p></blockquote>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-Doc/questions.html">Sipeed FAQ device table</a></li>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-4K/examples/led.html">Sipeed Tang Nano 4K blink</a></li>
+  <li><a href="https://github.com/YosysHQ/apicula/wiki/Nextpnr%E2%80%90Himbaechel-Gowin">Apicula device GW1NSR-LV4CQN48PC7/I6</a></li>
+  <li><a href="https://github.com/sipeed/TangNano-4K-example">sipeed/TangNano-4K-example</a></li>
+</ul>

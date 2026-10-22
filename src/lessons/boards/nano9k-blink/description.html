@@ -1,0 +1,17 @@
+<p>This is the first design to put on a Tang Nano 9K: a counter that toggles the LED bus. The in-browser testbench uses <code>LIMIT = 4</code> so you can see the toggle. At 27 MHz, a half-period of 0.5 s is 13&nbsp;500&nbsp;000 cycles, which is the count the Sipeed blink tutorials use (they count to 13&nbsp;499&nbsp;999).</p>
+<p>LEDs are active-low. Reset drives them high (off). A toggle drives them low (on).</p>
+<pre>IO_LOC "clk" 52;
+IO_PORT "clk" PULL_MODE=UP;
+IO_LOC "led[0]" 10;
+IO_LOC "led[1]" 11;
+IO_LOC "led[2]" 13;
+IO_LOC "led[3]" 14;
+IO_LOC "led[4]" 15;
+IO_LOC "led[5]" 16;</pre>
+<p>Flash with the commands in the Tang Nano 9K overview. The top module you synthesize is <code>blink</code>, and the testbench stays on the simulator.</p>
+<blockquote><p><strong>Exercise:</strong> Toggle <code>led</code> when <code>count</code> hits <code>LIMIT</code>. The log should say <code>PASS led toggled</code>.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/zh/tang/Tang-Nano-9K/examples/lushaylabs/1_installation_getting_started/installation_getting_started.html">Sipeed Tang Nano 9K getting started (pins 52 and 10-16, active-low LEDs)</a></li>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/tang-nano-20k/example/led.html">Sipeed Tang Nano 20K blink (the 13_499_999 half-second count at 27 MHz)</a></li>
+</ul>

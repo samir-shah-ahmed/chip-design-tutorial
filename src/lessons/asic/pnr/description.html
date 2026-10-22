@@ -1,0 +1,14 @@
+<p>Placement, clock-tree synthesis, and routing are where the netlist acquires coordinates and wires.</p>
+<ul>
+  <li><strong>Floorplan</strong> sets the core area, the rows the cells sit in, and where the IO pads or the macro pins are. A bad floorplan shows up later as a design that cannot route, not as a Verilog error.</li>
+  <li><strong>Placement</strong> assigns each standard cell a site. Timing estimates at this stage use distances, not real metal.</li>
+  <li><strong>CTS</strong> builds a buffer tree so that <code>clk</code> at every flip-flop skews only as much as the hold and setup budgets allow. The two flip-flops in this lesson are the smallest tree that still has skew: both clock pins must see the same edge.</li>
+  <li><strong>Routing</strong> draws the nets on metal layers. Routing congestion is a real DRC-adjacent failure: the router runs out of tracks and the design does not finish.</li>
+</ul>
+<p>OpenROAD runs these as separate stages. OpenLane sequences them and writes the artifacts (DEF, SPEF, GDS). This simulator has no coordinates. The exercise only checks that the two flip-flops form a two-cycle delay, which is the logical thing CTS and routing are required to preserve.</p>
+<blockquote><p><strong>Exercise:</strong> Shift <code>din</code> through two registers. It must not appear on <code>dout</code> after one clock, and it must appear after two.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://openroad.readthedocs.io/en/latest/">OpenROAD documentation</a></li>
+  <li><a href="https://openlane.readthedocs.io/en/latest/">OpenLane flow steps</a></li>
+</ul>

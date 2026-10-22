@@ -6,7 +6,7 @@ async function expectInterpretMode(logs) {
 }
 
 test('welcome lesson executes simulation output', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/lesson/sv/welcome');
 
   const logs = page.getByTestId('runtime-logs');
   await expect(page.getByRole('heading', { level: 2, name: 'Welcome' })).toBeVisible();
@@ -25,7 +25,7 @@ async function runModulesAndPorts(page) {
     consoleLines.push(msg.text());
   });
 
-  await page.goto('/');
+  await page.goto('/lesson/sv/welcome');
   await page.getByRole('button', { name: 'next' }).click();
 
   const logs = page.getByTestId('runtime-logs');

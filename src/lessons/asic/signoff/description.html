@@ -1,0 +1,14 @@
+<p>Signoff is the set of checks that happen after the layout exists. Two of them compare geometry to intent:</p>
+<ul>
+  <li><strong>DRC</strong> (design rule check) — widths, spacings, enclosures, and density on every layer. The rules come from the PDK. Sky130 and SG13G2 publish theirs; a commercial foundry's rule deck is usually under NDA. KLayout and Magic are the open tools people run these decks with.</li>
+  <li><strong>LVS</strong> (layout versus schematic) — extract transistors from the drawn shapes and prove they are the same netlist synthesis produced. A short or an open that DRC missed shows up here, as does a cell that was placed but never connected.</li>
+</ul>
+<p>Timing signoff re-runs STA on the extracted parasitics, often at several process-voltage-temperature corners. Power signoff checks IR drop and electromigration on the power grid. None of that is what the testbench below does.</p>
+<p>The testbench is the idea LVS is protecting, at RTL: a specification (<code>y = ~(a &amp; b)</code>) and an implementation (a NAND2 cell) must agree on every input. Real LVS compares extracted devices, not two Verilog functions. Passing this testbench is not a DRC or an LVS result.</p>
+<blockquote><p><strong>Exercise:</strong> Implement <code>impl</code> with the <code>nand2</code> cell so it matches the spec on all four input pairs.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://skywater-pdk.readthedocs.io/en/main/">SkyWater sky130 PDK (design rules shipped with the PDK)</a></li>
+  <li><a href="https://github.com/IHP-GmbH/IHP-Open-PDK">IHP Open PDK</a></li>
+  <li><a href="https://openlane.readthedocs.io/en/latest/">OpenLane signoff steps</a></li>
+</ul>

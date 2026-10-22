@@ -1,0 +1,13 @@
+<p>A design that simulates and still misbehaves on the board is usually a pin, a clock, a reset polarity, or a timing path. The tools you have on a Tang Nano, without an external analyzer, are:</p>
+<ul>
+  <li><strong>LEDs</strong> — sticky flags and one-hot state. The module in this lesson is that flag.</li>
+  <li><strong>UART</strong> — print a byte when the flag sets. The Nano 9K track builds the transmitter. The Sipeed/Lushay UART article is written for exactly this kind of bring-up.</li>
+  <li><strong>Gowin Analyzer</strong> — the vendor logic analyzer, inserted as an IP and read back over the debugger. It changes the design (it uses block RAM and routing), so a path can pass with the analyzer inserted and fail without it.</li>
+</ul>
+<p>Before you reach for an analyzer, check the things simulation cannot see: the CST pin, the bank voltage, the active-low LED, and whether reset is released. Several Tang Nano "it doesn't blink" reports are one of those four.</p>
+<blockquote><p><strong>Exercise:</strong> Make <code>seen</code> stick at 1 after a one-clock pulse on <code>event_in</code>. Reset is the only thing that clears it.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/zh/tang/Tang-Nano-9K/examples/lushaylabs/2_debugging_uart/debugging_uart.html">Sipeed Tang Nano 9K UART bring-up</a></li>
+  <li><a href="https://wiki.sipeed.com/hardware/zh/tang/Tang-Nano-9K/examples/lushaylabs/1_installation_getting_started/installation_getting_started.html">Sipeed Tang Nano 9K LED and clock pins</a></li>
+</ul>

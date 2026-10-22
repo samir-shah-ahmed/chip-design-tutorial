@@ -1,0 +1,17 @@
+<p>An FPGA is a grid of programmable logic, not a pile of gates that the vendor wires up for you. The pieces that show up in a utilization report are:</p>
+<ul>
+  <li><strong>LUT</strong> — a small memory addressed by the inputs. Any Boolean function of those inputs is just a different truth table. A 4-LUT has 16 bits of configuration.</li>
+  <li><strong>Flip-flop</strong> — usually sitting next to the LUT, clocked by a global clock network.</li>
+  <li><strong>Carry / mux fabric</strong> — dedicated wires so an adder does not spend a LUT on the carry.</li>
+  <li><strong>Block RAM</strong> — a hard memory. Inference wants a synchronous read, which is why the memory lesson was written that way.</li>
+  <li><strong>DSP</strong> — a hard multiplier-accumulator. <code>a * b</code> may land here, or in LUTs, depending on the width and the synthesis options.</li>
+  <li><strong>PLL / rPLL</strong> — a hard clock generator. You do not build a PLL out of LUTs.</li>
+  <li><strong>Routing</strong> — the programmable wires between all of the above. Timing failure is often a routing problem, not a logic problem.</li>
+</ul>
+<p>Gowin parts on the Tang Nano boards use the same idea with Gowin's names (CLU, BSRAM, DSP, rPLL). Exact counts belong to the device datasheet for the part printed on the chip, not to a guess in this lesson.</p>
+<blockquote><p><strong>Exercise:</strong> Write the 4:1 mux. Then look at the port list and answer the question in the comment: why is this mux more than one 4-LUT?</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://doi.org/10.1561/1000000005">Kuon, Tessier, and Rose, FPGA Architecture: Survey and Challenges</a></li>
+  <li><a href="https://github.com/YosysHQ/apicula/wiki/Nextpnr%E2%80%90Himbaechel-Gowin">Project Apicula, Gowin device support used by the open Tang Nano flow</a></li>
+</ul>

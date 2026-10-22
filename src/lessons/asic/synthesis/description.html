@@ -1,0 +1,9 @@
+<p>Logic synthesis maps RTL onto the cells the PDK actually has. Yosys does this in steps you can read in the log: hierarchy, process (always blocks become muxes and flip-flops), techmap, and then ABC, which covers the Boolean network with the library.</p>
+<p>What synthesis is allowed to change: the gates, the factoring, and which cell implements a function. What it is not allowed to change: the cycle-by-cycle behavior of registers, and the combinational function between them. A mux written as <code>if</code> and a mux written as <code>?:</code> should come out as the same function. If they do not, one of them inferred a latch because a branch was missing.</p>
+<p><code>initial</code> values, delays, and <code>$display</code> are not cells. They disappear, or the tool errors. The FPGA note is the same: <code>synth_gowin</code> is synthesis onto a different library (LUTs and Gowin flip-flops) with the same contract.</p>
+<blockquote><p><strong>Exercise:</strong> Rewrite the mux as one <code>assign</code>. The testbench still expects <code>sel=0</code> to return <code>a</code> and <code>sel=1</code> to return <code>b</code>.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://yosyshq.net/yosys/documentation.html">Yosys documentation, synthesis flow</a></li>
+  <li><a href="https://openlane.readthedocs.io/en/latest/">OpenLane synthesis step (Yosys)</a></li>
+</ul>

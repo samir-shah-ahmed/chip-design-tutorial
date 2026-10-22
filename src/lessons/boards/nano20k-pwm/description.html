@@ -1,0 +1,9 @@
+<p>PWM turns a duty cycle into brightness on an LED, or into a crude analog level after a filter. A free-running counter compares against <code>duty</code>. Because the Tang Nano 9K LEDs are common-anode to 1.8 V (Sipeed/Lushay getting-started article), the pin is driven low to light the LED. The compare is inverted relative to a common-cathode LED.</p>
+<p>Map <code>led</code> with the blinky CST for the board you are on. The 9K LED pins are 10, 11, 13, 14, 15, 16. The 20K blink article documents LED0 on pin 15; LiteX lists LED0 through LED5 on pins 15 through 20 and names them active-low.</p>
+<blockquote><p><strong>Exercise:</strong> Drive <code>led</code> low when <code>count &lt; duty</code>. With <code>duty</code> equal to 4, exactly 4 of 16 samples should be low.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/zh/tang/Tang-Nano-9K/examples/lushaylabs/1_installation_getting_started/installation_getting_started.html">Sipeed Tang Nano 9K getting started (LED pins and 1.8 V common anode)</a></li>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/tang-nano-20k/example/led.html">Sipeed Tang Nano 20K blink (clock pin 4, LED0 pin 15)</a></li>
+  <li><a href="https://github.com/litex-hub/litex-boards/blob/master/litex_boards/platforms/sipeed_tang_nano_20k.py">LiteX Tang Nano 20K platform (led_n pins 15-20)</a></li>
+</ul>

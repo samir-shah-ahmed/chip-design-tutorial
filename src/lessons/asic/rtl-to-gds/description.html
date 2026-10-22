@@ -1,0 +1,18 @@
+<p>An ASIC flow turns RTL into a GDSII layout a foundry can manufacture. The names of the stages, in the order OpenROAD and OpenLane run them, are:</p>
+<ol>
+  <li><strong>Synthesis</strong> — map RTL to a standard-cell netlist (Yosys, or a commercial tool).</li>
+  <li><strong>Floorplan</strong> — die size, rows, IO pins, and the macro blockages.</li>
+  <li><strong>Placement</strong> — put the standard cells in the rows.</li>
+  <li><strong>Clock tree synthesis (CTS)</strong> — insert buffers so the clock arrives at every flip-flop at nearly the same time.</li>
+  <li><strong>Routing</strong> — metal wires for every net.</li>
+  <li><strong>Static timing analysis</strong> — setup and hold on the routed design, with extracted parasitics.</li>
+  <li><strong>DRC and LVS</strong> — the drawn shapes obey the foundry rules, and the drawn transistors match the netlist.</li>
+  <li><strong>Signoff</strong> — the timing, power, and physical checks the foundry and the tapeout checklist require. Then GDSII leaves the building.</li>
+</ol>
+<p>Nothing in the browser run below is a GDSII. The simulator checks the RTL you would check in before spending a place-and-route run. The open-tool path that actually writes a GDSII is the Open Silicon lesson.</p>
+<blockquote><p><strong>Exercise:</strong> Implement the adder. This is the RTL contract. Later stages are not allowed to change it.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://openroad.readthedocs.io/en/latest/">OpenROAD flow documentation</a></li>
+  <li><a href="https://openlane.readthedocs.io/en/latest/">OpenLane documentation</a></li>
+</ul>

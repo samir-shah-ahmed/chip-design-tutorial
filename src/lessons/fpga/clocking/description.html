@@ -1,0 +1,12 @@
+<p>FPGA clocks are a network, not a signal you can AND with a button. Gating <code>clk</code> with a LUT output produces a clock that can glitch, and the timer in nextpnr will not treat that net as the oscillator you constrained.</p>
+<p>Prefer one of these:</p>
+<ul>
+  <li>A <strong>clock enable</strong> into the flip-flop: the clock pin stays on the global net, and the register ignores edges when the enable is low. This lesson builds that enable.</li>
+  <li>A <strong>PLL</strong> (Gowin rPLL) when you truly need another frequency. The Tang Nano 20K also has an MS5351 whose outputs land on FPGA pins; that part is configured by the onboard debugger, which the 20K track covers. A PLL is still a hard block, instantiated as an IP or a primitive, not as behavioral divides on the clock wire.</li>
+</ul>
+<blockquote><p><strong>Exercise:</strong> Pulse <code>ce</code> for one clock every 4 cycles. Over 8 clocks after reset the testbench should count exactly 2 pulses.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://github.com/sipeed/sipeed_wiki/blob/main/docs/hardware/en/tang/tang-nano-20k/example/unbox.md">Sipeed Tang Nano 20K unbox notes on the MS5351 clock outputs</a></li>
+  <li><a href="https://github.com/YosysHQ/apicula/wiki/Nextpnr%E2%80%90Himbaechel-Gowin">Apicula / nextpnr clock constraints via the device timing</a></li>
+</ul>

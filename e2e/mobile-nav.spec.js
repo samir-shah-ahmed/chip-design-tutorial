@@ -37,7 +37,7 @@ test.describe('sidebar navigation', () => {
 
   test('sidebar trigger opens the panel in narrow mode', async ({ page }) => {
     await page.setViewportSize(NARROW);
-    await page.goto('/');
+    await page.goto('/lesson/sv/welcome');
     // Wait for onMount to close the sidebar first
     await waitForCollapsed(page);
 
@@ -56,7 +56,7 @@ test.describe('sidebar navigation', () => {
 
   test('clicking a lesson inside the panel navigates', async ({ page }) => {
     await page.setViewportSize(NARROW);
-    await page.goto('/');
+    await page.goto('/lesson/sv/welcome');
 
     // Open the sidebar
     await page.getByRole('button', { name: /toggle sidebar/i }).click();

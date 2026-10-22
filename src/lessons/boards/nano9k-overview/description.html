@@ -1,0 +1,47 @@
+<p>The Tang Nano 9K is Sipeed's small Gowin board built around a GW1NR-9C in QN88P, speed C6/I5 (Sipeed FAQ). The open-source flow names that silicon <code>GW1NR-LV9QN88PC6/I5</code> with family <code>GW1N-9C</code> (Apicula). The "R" is Gowin's mark for the package that includes PSRAM. Read the Gowin GW1NR-9 datasheet for the memory density on the ordering code you have; this lesson does not repeat a density it has not quoted from that datasheet.</p>
+<h2>Clock, LEDs, banks</h2>
+<p>The Sipeed/Lushay getting-started article, written against the schematic, is the pin source for the first project:</p>
+<ul>
+  <li>27 MHz oscillator on pin 52.</li>
+  <li>Six LEDs on pins 10, 11, 13, 14, 15, and 16. They are common-anode to 1.8 V, so the pin must be driven low to light.</li>
+  <li>Most header GPIO is 3.3 V. The article says pins 79–86 are 1.8 V. Do not put a 3.3 V signal on that bank.</li>
+</ul>
+<pre>IO_LOC "clk" 52;
+IO_PORT "clk" PULL_MODE=UP;
+IO_LOC "led[0]" 10;
+IO_LOC "led[1]" 11;
+IO_LOC "led[2]" 13;
+IO_LOC "led[3]" 14;
+IO_LOC "led[4]" 15;
+IO_LOC "led[5]" 16;</pre>
+<p>The debugger on this board is a BL702, according to that UART article. Button S1 is pin 3, active-low, pulled up to 1.8 V. Button S2 is on the JTAG select pin; see the FAQ before you reuse it.</p>
+
+<h2>Open-source flow</h2>
+<p>Device strings below are from the Apicula nextpnr-himbaechel guide. Sipeed's FAQ table names the same chip as GW1NR-9C, package QN88P, speed C6/I5.</p>
+<pre>yosys -p "read_verilog design.v; synth_gowin -top top -json design.json"
+nextpnr-himbaechel --json design.json --write design_pnr.json \
+  --device GW1NR-LV9QN88PC6/I5 --vopt family=GW1N-9C --vopt cst=board.cst
+gowin_pack -d GW1N-9C -o design.fs design_pnr.json
+openFPGALoader -b tangnano9k design.fs
+openFPGALoader -b tangnano9k -f design.fs</pre>
+<p>The second openFPGALoader line is the form used when the bitstream should be written to flash. Confirm <code>-f</code> in <code>openFPGALoader --help</code> for the version you have.</p>
+<h2>Gowin EDA</h2>
+<ol>
+  <li>Create a project. Set the series, device, package, and speed to the FAQ row for the Tang Nano 9K (GW1NR-9C, QN88P, C6/I5) and to the part printed on your chip if it differs.</li>
+  <li>Add the Verilog. Synthesize.</li>
+  <li>Open FloorPlanner and save a CST. You can also paste the CST from these lessons.</li>
+  <li>Place &amp; Route. If a pin is refused because it is a dual-purpose pin, the Tang Nano 4K blink page shows the checkbox under Project, Configuration, Place&amp;Route, Dual-Purpose Pin.</li>
+  <li>Program. SRAM is lost on power-off. Flash is not. Hold S2 if the debugger cannot see the FPGA: Sipeed's FAQ says S2 is wired to JTAGSEL_N, and JTAG is enabled when that pin is low.</li>
+</ol>
+
+
+<blockquote><p><strong>Exercise:</strong> In <code>top.sv</code>, print <code>Tang Nano 9K</code> and finish. This only checks that the simulator is alive. The pins and commands are in the text.</p></blockquote>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-Doc/questions.html">Sipeed FAQ device table</a></li>
+  <li><a href="https://github.com/YosysHQ/apicula/wiki/Nextpnr%E2%80%90Himbaechel-Gowin">Apicula nextpnr-himbaechel device table</a></li>
+  <li><a href="https://wiki.sipeed.com/hardware/zh/tang/Tang-Nano-9K/examples/lushaylabs/1_installation_getting_started/installation_getting_started.html">Sipeed Tang Nano 9K getting started</a></li>
+  <li><a href="https://wiki.sipeed.com/hardware/zh/tang/Tang-Nano-9K/examples/lushaylabs/2_debugging_uart/debugging_uart.html">Sipeed Tang Nano 9K UART article (BL702, S1)</a></li>
+  <li><a href="https://github.com/trabucayre/openFPGALoader">openFPGALoader</a></li>
+</ul>

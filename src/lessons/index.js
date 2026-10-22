@@ -76,9 +76,39 @@ export const parts = [
   {
     title: 'Verilog Fundamentals',
     chapters: [
-      { title: 'Getting Started', lessons: [L('verilog/intro'), L('verilog/modules'), L('verilog/wires-regs')] },
-      { title: 'Logic & Operations', lessons: [L('verilog/gates'), L('verilog/operators')] },
-      { title: 'Behavioral Modeling', lessons: [L('verilog/always-blocks'), L('verilog/if-case'), L('verilog/testbench')] },
+      { title: 'Boolean and Gates', lessons: [L('verilog/intro'), L('verilog/logic-basics'), L('verilog/gates')] },
+      { title: 'Modules and Signals', lessons: [L('verilog/modules'), L('verilog/wires-regs'), L('verilog/operators')] },
+      { title: 'Procedural Blocks', lessons: [L('verilog/always-blocks'), L('verilog/blocking'), L('verilog/if-case')] },
+      { title: 'State and Memory', lessons: [L('verilog/sequential'), L('verilog/fsm'), L('verilog/memories')] },
+      { title: 'Structure and Time', lessons: [L('verilog/parameters'), L('verilog/generate'), L('verilog/testbench'), L('verilog/clock-domains')] },
+    ],
+  },
+
+  {
+    title: 'FPGA Design',
+    chapters: [
+      { title: 'FPGA Fabric', lessons: [L('fpga/architecture'), L('fpga/resources')] },
+      { title: 'Building a Bitstream', lessons: [L('fpga/flow'), L('fpga/timing')] },
+      { title: 'Clocks and Debug', lessons: [L('fpga/clocking'), L('fpga/debug')] },
+    ],
+  },
+  {
+    title: 'ASIC Design',
+    chapters: [
+      { title: 'ASIC RTL', lessons: [L('asic/rtl-to-gds'), L('asic/stdcells'), L('asic/synthesis')] },
+      { title: 'ASIC Physical Design', lessons: [L('asic/pnr'), L('asic/sta'), L('asic/signoff')] },
+      { title: 'Test and Tradeoffs', lessons: [L('asic/dft'), L('asic/tradeoffs')] },
+      { title: 'Open Silicon', lessons: [L('asic/open-tools'), L('asic/same-rtl')] },
+    ],
+  },
+  {
+    title: 'Tang Nano Boards',
+    chapters: [
+      { title: 'Nano 9K', lessons: [L('boards/nano9k-overview'), L('boards/nano9k-blink'), L('boards/nano9k-buttons'), L('boards/nano9k-uart'), L('boards/nano9k-pwm'), L('boards/nano9k-display')] },
+      { title: 'Nano 20K', lessons: [L('boards/nano20k-overview'), L('boards/nano20k-blink'), L('boards/nano20k-buttons'), L('boards/nano20k-uart'), L('boards/nano20k-pwm'), L('boards/nano20k-hdmi')] },
+      { title: 'Nano 4K', lessons: [L('boards/nano4k-overview'), L('boards/nano4k-blink')] },
+      { title: 'Nano 1K', lessons: [L('boards/nano1k-overview'), L('boards/nano1k-blink')] },
+      { title: 'Larger Sipeed Boards', lessons: [L('boards/primer20k')] },
     ],
   },
   {

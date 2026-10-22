@@ -1,0 +1,24 @@
+<p>Simulation answers "what does the RTL do?" The FPGA flow answers "which LUTs, flip-flops, and wires on this part implement it?"</p>
+<ol>
+  <li><strong>Synthesis</strong> — Yosys <code>synth_gowin</code> turns Verilog into a netlist of the device's cells and writes JSON.</li>
+  <li><strong>Place and route</strong> — nextpnr-himbaechel, with the Apicula Gowin chip database, puts those cells on the part and routes them. The <code>.cst</code> file is how a port becomes a pin.</li>
+  <li><strong>Bitstream</strong> — <code>gowin_pack</code> (from Apicula) writes a <code>.fs</code> file.</li>
+  <li><strong>Program</strong> — openFPGALoader talks to the board's USB debugger.</li>
+</ol>
+<p>The Tang Nano 9K open-source commands, with the part strings from the Apicula nextpnr guide, look like this:</p>
+<pre>yosys -p "read_verilog tick.v; synth_gowin -top tick -json tick.json"
+nextpnr-himbaechel --json tick.json --write tick_pnr.json \
+  --device GW1NR-LV9QN88PC6/I5 --vopt family=GW1N-9C --vopt cst=board.cst
+gowin_pack -d GW1N-9C -o tick.fs tick_pnr.json
+openFPGALoader -b tangnano9k tick.fs</pre>
+<p><code>-f</code> on openFPGALoader is what published Tang Nano makefiles add when they want the image written to flash so it survives power-off. Check <code>openFPGALoader --help</code> for the flag in the version you installed. Programming SRAM is lost when the board loses power.</p>
+<p>Gowin EDA does the same four jobs behind a GUI. The Sipeed blink tutorials walk through it: new project set to the device, add the Verilog, Synthesize, open FloorPlanner and save the CST, Place &amp; Route, then Program, choosing SRAM or flash. Pins that share a configuration function (MODE, DONE, JTAG) need the dual-purpose-pin checkbox or place-and-route refuses them. That checkbox is described on the Tang Nano 4K blink page.</p>
+<blockquote><p><strong>Exercise:</strong> Finish the counter. It is the RTL you would hand to the commands above. The in-browser simulator checks the function; it does not run Yosys.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://yosyshq.net/yosys/documentation.html">Yosys documentation</a></li>
+  <li><a href="https://github.com/YosysHQ/nextpnr">nextpnr</a></li>
+  <li><a href="https://github.com/YosysHQ/apicula/wiki/Nextpnr%E2%80%90Himbaechel-Gowin">Apicula nextpnr-himbaechel Gowin guide (device and family table)</a></li>
+  <li><a href="https://github.com/trabucayre/openFPGALoader">openFPGALoader</a></li>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-4K/examples/led.html">Sipeed Tang Nano 4K blink (Gowin EDA steps)</a></li>
+</ul>

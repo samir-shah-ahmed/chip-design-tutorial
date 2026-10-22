@@ -1,0 +1,9 @@
+<p>The Tang Nano 20K has an HDMI connector. This lesson does not copy a TMDS pin table. The Sipeed 20K blink article, which was checked for this track, documents the 27 MHz clock on pin 4 and LED0 on pin 15, and does not list HDMI pairs. Take the pairs from the Tang Nano 20K schematic or from Sipeed's 20K example repository before you write a CST. Inventing them would program the wrong pins.</p>
+<p>What does transfer from the 9K display lesson is the structure: a line counter, a pixel clock from a PLL or from the MS5351 (Sipeed's unbox notes put MS5351 CLK0/CLK1/CLK2 on FPGA pins 10, 11, and 13), and a TMDS serializer taken from a Sipeed example rather than written from memory. The exercise is the same line counter, so you can simulate the timing generator while the pin table is still on your desk.</p>
+<blockquote><p><strong>Exercise:</strong> Assert <code>hsync</code> while <code>x &lt; H_SYNC</code>.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/tang-nano-20k/example/led.html">Sipeed Tang Nano 20K blink (pins this lesson will not invent past)</a></li>
+  <li><a href="https://github.com/sipeed/sipeed_wiki/blob/main/docs/hardware/en/tang/tang-nano-20k/example/unbox.md">Sipeed Tang Nano 20K unbox (MS5351 on pins 10, 11, 13)</a></li>
+  <li><a href="https://github.com/sipeed/sipeed_wiki/tree/main/docs/hardware/en/tang/tang-nano-20k">Sipeed wiki tree for the 20K</a></li>
+</ul>

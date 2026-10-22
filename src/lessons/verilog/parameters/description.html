@@ -1,0 +1,8 @@
+<p>A <code>parameter</code> is a constant chosen when the module is instantiated. It is how one adder description becomes an 8-bit adder in one design and a 4-bit adder in another, without copying the file.</p>
+<pre>add #(.WIDTH(4)) dut(.a(a), .b(b), .sum(sum));</pre>
+<p><code>localparam</code> is the same idea, but it cannot be overridden from outside. Use it for constants that belong to the implementation, such as a state encoding.</p>
+<blockquote><p><strong>Exercise:</strong> Implement the add. The testbench overrides <code>WIDTH</code> to 4 and expects <code>3 + 4 = 7</code>.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://standards.ieee.org/ieee/1364/3641/">IEEE 1364, parameters</a></li>
+</ul>

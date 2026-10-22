@@ -1,0 +1,13 @@
+<p>Static timing analysis walks every path and subtracts delay from the clock period. It does not simulate vectors. A path that is never sensitized in your testbench can still fail STA, and a path that passes STA can still be functionally wrong.</p>
+<ul>
+  <li><strong>Setup</strong> — data launched by one edge must arrive at the next flip-flop before the following edge, minus setup time. Slack is positive when it does.</li>
+  <li><strong>Hold</strong> — data must not arrive so quickly that it corrupts the same edge that launched it. Hold is about clock skew and minimum delay, not about the clock period. Making the clock slower does not fix hold.</li>
+  <li>After routing, the delays come from extracted parasitics (SPEF in the OpenROAD flow), not from the RTL.</li>
+</ul>
+<p>The usual RTL response to a setup failure is the same as on an FPGA: split the cloud with a register and accept the extra cycle of latency. Hold failures are usually fixed in CTS and by the router inserting delay cells, not by rewriting the adder.</p>
+<blockquote><p><strong>Exercise:</strong> Register <code>a</code> and <code>b</code> before the add, and register the sum. Two clocks after you present 6 and 7, <code>y</code> is 13. One clock after, it must still not be 13.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://openroad.readthedocs.io/en/latest/">OpenROAD static timing</a></li>
+  <li><a href="https://www.cmossvlsi.com/">Neil Weste and David Harris, CMOS VLSI Design (setup, hold, and delay)</a></li>
+</ul>

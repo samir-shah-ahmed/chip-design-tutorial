@@ -1,0 +1,8 @@
+<p>A memory in Verilog is an array of registers: <code>reg [3:0] mem [0:7];</code> is eight words of four bits. Synthesis maps a large array with a synchronous read onto block RAM. A tiny array, or an asynchronous read (<code>assign rdata = mem[addr]</code>), often becomes flip-flops instead.</p>
+<p>This RAM writes on the clock when <code>we</code> is high and presents the read data on the following clock (synchronous read). The read uses non-blocking assignment, so a write and a read in the same clock see the old word. The testbench writes on one edge and checks <code>rdata</code> on the next.</p>
+<blockquote><p><strong>Exercise:</strong> Add the synchronous read. Writing <code>4'hA</code> to address 3 should come back as <code>PASS rdata=a</code>.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://doi.org/10.1561/1000000005">Kuon, Tessier, and Rose on block RAM as a hard FPGA resource</a></li>
+  <li><a href="https://standards.ieee.org/ieee/1364/3641/">IEEE 1364, memory arrays</a></li>
+</ul>

@@ -1,0 +1,7 @@
+<p><code>generate</code> copies hardware at elaboration time. It is not a loop that runs during simulation. The result is N real instances, with N sets of wires, as if you had written them out by hand.</p>
+<p>A ripple-carry adder is the textbook use: each stage is a full adder, and stage <code>i</code> takes the carry out of stage <code>i-1</code>. The carry chain is a bus one bit wider than the data, with <code>carry[0]</code> tied to 0.</p>
+<blockquote><p><strong>Exercise:</strong> Build the carry chain with a <code>generate for</code> loop of <code>full_adder</code> instances. <code>3+1</code> should produce sum <code>4</code>, and <code>15+1</code> should wrap to <code>0</code> with <code>cout</code> high.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://standards.ieee.org/ieee/1364/3641/">IEEE 1364, generate constructs</a></li>
+</ul>

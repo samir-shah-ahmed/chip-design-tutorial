@@ -1,0 +1,13 @@
+<p>A digital circuit is a network of Boolean functions. The functions you will write in Verilog are the same ones a lookup table or a standard cell will later implement.</p>
+<h2>The operators that become gates</h2>
+<ul>
+  <li><code>&amp;</code> AND, <code>|</code> OR, <code>^</code> XOR, <code>~</code> NOT</li>
+  <li><code>assign</code> is continuous: the left-hand side tracks the expression, like a wire driven by a gate.</li>
+</ul>
+<p>A 1-bit full adder adds <code>a</code>, <code>b</code>, and a carry-in. The sum bit is the parity of the three inputs. The carry-out is set when at least two inputs are 1. Those two equations are the entire circuit.</p>
+<blockquote><p><strong>Exercise:</strong> Finish <code>full_adder</code>. Run the testbench. Every row of the truth table should match, and the log should end in <code>PASS full adder</code>.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://standards.ieee.org/ieee/1364/3641/">IEEE 1364 Verilog (language of the operators used here)</a></li>
+  <li><a href="https://doi.org/10.1561/1000000005">Kuon, Tessier, and Rose, FPGA Architecture: Survey and Challenges (how a LUT stores a truth table)</a></li>
+</ul>

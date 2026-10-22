@@ -26,7 +26,7 @@ async function expectInterpretMode(logs) {
 // ── Navigation ────────────────────────────────────────────────────────────────
 
 test('prev/next navigate between lessons', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/lesson/sv/welcome');
   const h2 = page.getByTestId('lesson-title');
 
   await expect(h2).toHaveText('Welcome');
@@ -63,7 +63,7 @@ test('solve/reset toggles between solution and starter', async ({ page }) => {
 // ── SystemVerilog Basics ──────────────────────────────────────────────────────
 
 test('Welcome: run outputs Hello World', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/lesson/sv/welcome');
   await page.getByTestId('run-button').click();
 
   const logs = page.getByTestId('runtime-logs');
@@ -99,7 +99,7 @@ test('Modules and Ports: waveform renders after solve and run', async ({ page })
   }
   test.skip(surferCrashes, 'Surfer crashes in this Playwright environment (WebGL unavailable)');
 
-  await page.goto('/');
+  await page.goto('/lesson/sv/welcome');
   await page.getByRole('button', { name: 'next' }).click();
   await expect(page.getByTestId('lesson-title')).toHaveText('Modules and Ports');
 
