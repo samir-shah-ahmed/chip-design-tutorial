@@ -1,14 +1,18 @@
 import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
 
-function localStore(key, initial) {
-  const stored = browser ? localStorage.getItem(key) : null;
-  let value = initial;
-  if (stored !== null) { try { value = JSON.parse(stored); } catch {} }
+function savedFlag(key, fallback) {
+  if (!browser) return writable(fallback);
+  const raw = localStorage.getItem(key);
+  let value = fallback;
+  if (raw !== null) {
+    try { value = JSON.parse(raw); } catch { value = fallback; }
+  }
   const store = writable(value);
-  if (browser) store.subscribe(v => { try { localStorage.setItem(key, JSON.stringify(v)); } catch {} });
+  store.subscribe((next) => {
+    try { localStorage.setItem(key, JSON.stringify(next)); } catch { /* private mode */ }
+  });
   return store;
 }
 
-export const darkMode = localStore('svt:darkMode', false);
-export const vimMode  = localStore('svt:vimMode',  false);
+export const darkMode = savedFlag('vb:dark', false);

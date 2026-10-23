@@ -18,10 +18,8 @@ const COOP_COEP_HEADERS = {
 
 /**
  * Vite plugin that injects COOP/COEP headers into the preview server.
- * Needed for SharedArrayBuffer (z3-solver WASM) to work in `vite preview`
- * (the server used by Playwright e2e tests).  Without these headers
- * window.crossOriginIsolated is false and coi-serviceworker.js triggers
- * a reload mid-test, destroying Playwright's execution context.
+ * Needed so `vite preview` (the server used by Playwright) is cross-origin
+ * isolated. CIRCT and the bundled z3-solver build use that isolation.
  */
 function previewHeadersPlugin() {
   return {
@@ -115,10 +113,7 @@ export default defineConfig({
           // Keep framework/UI deps separate from lesson/runtime code.
           if (
             id.includes('/svelte/') ||
-            id.includes('/@sveltejs/') ||
-            id.includes('/bits-ui/') ||
-            id.includes('/tailwind-merge/') ||
-            id.includes('/tailwind-variants/')
+            id.includes('/@sveltejs/')
           ) {
             return 'framework-vendor';
           }
@@ -136,8 +131,6 @@ export default defineConfig({
   preview: {
     headers: {
       // Same headers for `vite preview` (used by e2e tests).
-      // Without these, window.crossOriginIsolated is false and coi-serviceworker.js
-      // triggers a page reload mid-test, destroying Playwright's execution context.
       'Cross-Origin-Opener-Policy': 'same-origin',
       'Cross-Origin-Embedder-Policy': 'require-corp'
     }

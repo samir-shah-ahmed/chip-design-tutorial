@@ -14,9 +14,9 @@ import {
 describe('offline-cache helpers', () => {
   it('normalizes and joins base paths', () => {
     expect(normalizeBasePath('')).toBe('/');
-    expect(normalizeBasePath('/sv-tutorial')).toBe('/sv-tutorial/');
-    expect(normalizeBasePath('sv-tutorial')).toBe('/sv-tutorial/');
-    expect(joinBasePath('/sv-tutorial', '/circt/circt-sim.js')).toBe('/sv-tutorial/circt/circt-sim.js');
+    expect(normalizeBasePath('/course')).toBe('/course/');
+    expect(normalizeBasePath('course')).toBe('/course/');
+    expect(joinBasePath('/course', '/circt/circt-sim.js')).toBe('/course/circt/circt-sim.js');
   });
 
   it('dedupes string values', () => {
@@ -38,7 +38,7 @@ describe('offline-cache helpers', () => {
 
   it('builds runtime URL list from config and local defaults', () => {
     const urls = buildConfiguredRuntimeUrls({
-      basePath: '/sv-tutorial',
+      basePath: '/course',
       runtimeConfig: {
         toolchain: {
           sim: {
@@ -60,12 +60,12 @@ describe('offline-cache helpers', () => {
       expect(urls).toContain(`https://cdn.example.com/pyodide/${companion}`);
     }
     for (const rel of LOCAL_RUNTIME_PATHS) {
-      expect(urls).toContain(joinBasePath('/sv-tutorial', rel));
+      expect(urls).toContain(joinBasePath('/course', rel));
     }
     expect(new Set(urls).size).toBe(urls.length);
   });
 
   it('builds offline-ready sentinel URL under the app base path', () => {
-    expect(offlineReadySentinelUrl('/sv-tutorial')).toBe('/sv-tutorial/__offline__/ready');
+    expect(offlineReadySentinelUrl('/course')).toBe('/course/__offline__/ready');
   });
 });

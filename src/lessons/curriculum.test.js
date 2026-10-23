@@ -11,8 +11,9 @@ const REQUIRED_PARTS = [
   'FPGA Design',
   'ASIC Design',
   'Tang Nano Boards',
-  'SystemVerilog Basics',
 ];
+
+const REMOVED_PREFIXES = ['sv/', 'sva/', 'uvm/', 'cocotb/', 'mlir/'];
 
 const REQUIRED_SLUGS = [
   'verilog/logic-basics',
@@ -49,6 +50,9 @@ describe('curriculum', () => {
     for (const title of REQUIRED_PARTS) expect(titles).toContain(title);
     for (const slug of REQUIRED_SLUGS) {
       expect(lessons.some((lesson) => lesson.slug === slug)).toBe(true);
+    }
+    for (const lesson of lessons) {
+      expect(REMOVED_PREFIXES.some((prefix) => lesson.slug.startsWith(prefix))).toBe(false);
     }
   });
 

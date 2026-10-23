@@ -1,6 +1,6 @@
-export const OFFLINE_APP_CACHE_PREFIX = 'svt-app-';
-export const OFFLINE_RUNTIME_CACHE = 'svt-runtime-v1';
-export const OFFLINE_STATE_KEY = 'svt:offline-ready-v1';
+export const OFFLINE_APP_CACHE_PREFIX = 'vb-app-';
+export const OFFLINE_RUNTIME_CACHE = 'vb-runtime-v1';
+export const OFFLINE_STATE_KEY = 'vb:offline-ready-v1';
 export const OFFLINE_READY_SENTINEL_RELATIVE_PATH = '__offline__/ready';
 
 export const HEAVY_STATIC_PREFIXES = ['circt/', 'surfer/', 'z3/', 'pyodide/'];
@@ -19,15 +19,6 @@ export const LOCAL_RUNTIME_PATHS = [
   'circt/circt-verilog.wasm',
   'circt/circt-sim.js',
   'circt/circt-sim.wasm',
-  'circt/circt-bmc.js',
-  'circt/circt-bmc.wasm',
-  'circt/circt-sim-vpi.js',
-  'circt/circt-sim-vpi.wasm',
-  'circt/circt-lec.js',
-  'circt/circt-lec.wasm',
-  'circt/uvm-core/uvm-manifest.json',
-  'z3/z3-built.js',
-  'z3/z3-built.wasm',
   ...SURFER_RUNTIME_PATHS,
 ];
 
@@ -106,6 +97,7 @@ export function buildConfiguredRuntimeUrls({ basePath = '/', runtimeConfig = nul
     const pyodideUrl = String(cfg.pyodideUrl);
     urls.push(pyodideUrl);
     urls.push(...siblingUrls(pyodideUrl, PYODIDE_COMPANION_FILES));
+    urls.push(joinBasePath(basePath, PYODIDE_MANIFEST_RELATIVE_PATH));
   }
 
   if (z3ScriptUrl) {
@@ -115,7 +107,6 @@ export function buildConfiguredRuntimeUrls({ basePath = '/', runtimeConfig = nul
   }
 
   urls.push(...LOCAL_RUNTIME_PATHS.map((path) => joinBasePath(basePath, path)));
-  urls.push(joinBasePath(basePath, PYODIDE_MANIFEST_RELATIVE_PATH));
 
   return dedupeStrings(urls);
 }
