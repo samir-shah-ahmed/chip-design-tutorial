@@ -3,23 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SV Tutorial</title>
+    <title>VeriBench</title>
     <link rel="icon" href="%sveltekit.assets%/favicon.svg" type="image/svg+xml" />
-    <meta name="description" content="Interactive SystemVerilog tutorial with in-browser simulation, powered by CIRCT." />
-    <meta property="og:site_name" content="SV Tutorial" />
+    <link rel="manifest" href="%sveltekit.assets%/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="%sveltekit.assets%/icons/icon-192.png" />
+    <meta name="description" content="VeriBench is an on-device Verilog, FPGA, and ASIC learning bench with in-browser simulation." />
+    <meta name="theme-color" content="#0d6f72" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="VeriBench" />
+    <meta property="og:site_name" content="VeriBench" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://thomasnormal.github.io/sv-tutorial/favicon.svg" />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S7J2WQBFPM"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'G-S7J2WQBFPM');
-    </script>
     <script>
       (function () {
-        var dm = localStorage.getItem('svt:darkMode');
+        var dm = localStorage.getItem('vb:dark');
         if (dm === 'true' || (dm === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
           document.documentElement.classList.add('dark');
         }

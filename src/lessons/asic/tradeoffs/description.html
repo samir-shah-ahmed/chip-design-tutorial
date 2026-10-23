@@ -1,0 +1,13 @@
+<p>Power, area, and timing pull against each other, and the RTL is where a lot of that bargain is made.</p>
+<ul>
+  <li><strong>Timing</strong> wants more pipeline registers and more parallelism. That spends area and, if the extra registers toggle, power.</li>
+  <li><strong>Area</strong> wants sharing: one multiplier used on two cycles instead of two multipliers. That spends latency.</li>
+  <li><strong>Dynamic power</strong> in CMOS is the energy of charging capacitance: it grows with capacitance, with the square of voltage, and with how often nodes switch. A register that reloads the same value every clock still clocks its pin. A clock enable, or a clock-gate cell from the standard-cell library, stops that. Do not build the gate by ANDing the clock in RTL. The library cell is designed so the clock does not glitch; a LUT or a random AND gate is not.</li>
+  <li><strong>Leakage</strong> is the power you pay when nothing switches. Fewer cells and higher-threshold libraries are the usual levers. RTL cannot see threshold voltage.</li>
+</ul>
+<p>On an FPGA the same enable saves routing and LUT toggles, but you cannot pick a high-Vt flip-flop, and you cannot change the supply. The ASIC bargain is wider because the library and the PDK are part of the design.</p>
+<blockquote><p><strong>Exercise:</strong> Hold <code>q</code> when <code>en</code> is low. Load 9, then change the input with <code>en</code> low. <code>q</code> must stay 9.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://www.cmossvlsi.com/">Weste and Harris, CMOS VLSI Design (dynamic power and clock gating)</a></li>
+</ul>

@@ -1,0 +1,9 @@
+<p>After place and route, every path between two flip-flops has a delay: LUT delay plus routing delay. The clock period has to be longer than the longest of those paths, plus the flip-flop's setup time, or the next register samples the wrong value. That gap is the setup slack. Hold slack is the opposite problem: the data must not change at the capturing flip-flop too soon after the clock.</p>
+<p>You close timing by shortening the long path or by giving it another clock. Adding a pipeline register cuts one combinational cloud into two. The function is the same, one clock later. The Tang Nano lessons constrain the external clock at 27 MHz because that is the oscillator frequency Sipeed documents; the tools turn that into the period they check.</p>
+<p>A timing report names the path. It does not tell you the RTL is "wrong" in simulation. Simulation here has no gate delay. A design can pass this testbench and still fail timing on the FPGA.</p>
+<blockquote><p><strong>Exercise:</strong> Split <code>a + b + c</code> across two clocks. Present 10, 20, and 3. Two clocks later <code>y</code> must be 33. One clock later it must not be 33 yet, because the second add has not happened.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://github.com/YosysHQ/nextpnr">nextpnr timing reports</a></li>
+  <li><a href="https://wiki.sipeed.com/hardware/zh/tang/Tang-Nano-9K/examples/lushaylabs/1_installation_getting_started/installation_getting_started.html">Sipeed Tang Nano 9K getting started (27 MHz oscillator on pin 52)</a></li>
+</ul>

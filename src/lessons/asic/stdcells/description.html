@@ -1,0 +1,14 @@
+<p>ASIC synthesis does not emit LUTs. It emits <strong>standard cells</strong> from a library: inverters, NAND, NOR, AOI, flip-flops, and clock buffers, each with a layout in the foundry's design rules. A <strong>PDK</strong> (process design kit) is the foundry data those cells, and the place-and-route rules, are built from.</p>
+<p>Two open PDKs show up in current open silicon:</p>
+<ul>
+  <li><strong>SkyWater sky130</strong> — a 130 nm CMOS PDK released with Google, Efabless, and SkyWater. OpenLane's best-trodden path targets it. The PDK license is the SkyWater license, which is not the same document as this tutorial.</li>
+  <li><strong>IHP SG13G2</strong> — IHP's open 130 nm BiCMOS PDK, used by newer OpenLane and Tiny Tapeout shuttles.</li>
+</ul>
+<p>The exercise uses a pretend <code>nand2</code> cell so you can see a netlist without downloading a PDK. A real library cell also has timing arcs, input capacitance, and a LEF outline. Those are what static timing and placement consume.</p>
+<blockquote><p><strong>Exercise:</strong> Build XOR out of NAND2 instances only. All four input pairs must match.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://skywater-pdk.readthedocs.io/en/main/">SkyWater sky130 PDK documentation</a></li>
+  <li><a href="https://github.com/IHP-GmbH/IHP-Open-PDK">IHP Open PDK</a></li>
+  <li><a href="https://openlane.readthedocs.io/en/latest/">OpenLane (sky130 and SG13G2 flows)</a></li>
+</ul>

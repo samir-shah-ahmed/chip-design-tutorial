@@ -1,0 +1,14 @@
+<p>The same Verilog can cost a handful of LUTs or an entire hard block. That choice is the resource report, and it is part of the design, not an accident you notice when the device is full.</p>
+<ul>
+  <li>A bit-wide mux or a compare wants LUTs.</li>
+  <li>A wide multiply wants a DSP. Forcing it into LUTs works until the routing delay destroys the clock period.</li>
+  <li>A large synchronous memory wants block RAM. An asynchronous read, or a memory the synthesizer cannot prove is a RAM, becomes flip-flops.</li>
+  <li>A clock divided by an extra flip-flop on the clock pin is not a resource win. It creates a new clock the router does not treat as the global clock. Use a clock enable.</li>
+</ul>
+<p>Read the Yosys log and the nextpnr utilization summary after <code>synth_gowin</code>. If a multiply you expected to see as a DSP was built from LUTs, the RTL or the synthesis options did not match what the mapper looks for.</p>
+<blockquote><p><strong>Exercise:</strong> Write the multiply. The simulator checks 12×10. On the Tang Nano flow, the interesting question is the cell type in the synthesis log, which this browser run does not print.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://yosyshq.net/yosys/documentation.html">Yosys synthesis and cell mapping</a></li>
+  <li><a href="https://doi.org/10.1561/1000000005">Kuon, Tessier, and Rose on DSP and block RAM</a></li>
+</ul>

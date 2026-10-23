@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@plugin "tailwindcss-animate";
 
 @theme {
   /* App color palette — direct color tokens */
@@ -10,6 +9,7 @@
   --color-ink:             #1e2a2c;
   --color-teal:            #0d6f72;   /* primary brand accent (teal) */
   --color-accent-2:        #cc5f2d;
+  --color-border:          #d5cbb2;
 
   /* Chip/badge state colors */
   --color-chip-ok-text:    #1c6e3a;
@@ -36,43 +36,6 @@
   --breakpoint-narrow: 61.25rem;
 }
 
-/*
- * Bridge shadcn-svelte's :root CSS variables (space-separated RGB channels)
- * into Tailwind utility classes. `@theme inline` keeps these as dynamic
- * var() references so they follow the :root values at runtime.
- */
-@theme inline {
-  --color-background:           rgb(var(--background));
-  --color-foreground:           rgb(var(--foreground));
-  --color-card:                 rgb(var(--card));
-  --color-card-foreground:      rgb(var(--card-foreground));
-  --color-popover:              rgb(var(--background));
-  --color-popover-foreground:   rgb(var(--foreground));
-  --color-primary:              rgb(var(--primary));
-  --color-primary-foreground:   rgb(var(--primary-foreground));
-  --color-secondary:            rgb(var(--secondary));
-  --color-secondary-foreground: rgb(var(--secondary-foreground));
-  --color-muted:                rgb(var(--muted));
-  --color-muted-foreground:     rgb(var(--muted-foreground));
-  --color-accent:               rgb(var(--accent));
-  --color-accent-foreground:    rgb(var(--accent-foreground));
-  --color-destructive:          rgb(var(--destructive));
-  --color-destructive-foreground: rgb(var(--destructive-foreground));
-  --color-border:               rgb(var(--border));
-  --color-input:                rgb(var(--input));
-  --color-ring:                 rgb(var(--ring));
-
-  /* Sidebar tokens — map to our app palette so the Sidebar component is themed */
-  --color-sidebar:                      var(--color-surface);
-  --color-sidebar-foreground:           var(--color-ink);
-  --color-sidebar-border:               rgb(var(--border));
-  --color-sidebar-accent:               var(--color-surface-2);
-  --color-sidebar-accent-foreground:    var(--color-ink);
-  --color-sidebar-primary:              var(--color-teal);
-  --color-sidebar-primary-foreground:   var(--color-surface);
-  --color-sidebar-ring:                 var(--color-teal);
-}
-
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
@@ -80,26 +43,6 @@
 
   :root {
     line-height: 1.35;
-
-    /* shadcn-svelte CSS variable theme — RGB channel values for opacity composing */
-    --background:           255 253 247;   /* --color-surface */
-    --foreground:           30 42 44;      /* --color-ink */
-    --card:                 255 253 247;
-    --card-foreground:      30 42 44;
-    --primary:              13 111 114;    /* teal */
-    --primary-foreground:   255 253 247;
-    --secondary:            239 232 215;   /* --color-surface-2 */
-    --secondary-foreground: 30 42 44;
-    --muted:                239 232 215;   /* surface hover / muted bg */
-    --muted-foreground:     88 100 105;    /* muted text */
-    --accent:               239 232 215;   /* hover surface */
-    --accent-foreground:    30 42 44;
-    --destructive:          139 47 47;
-    --destructive-foreground: 255 253 247;
-    --border:               213 203 178;   /* #d5cbb2 */
-    --input:                213 203 178;
-    --ring:                 13 111 114;    /* teal */
-    --radius:               0.625rem;
   }
 
   html.dark {
@@ -109,27 +52,10 @@
     --color-surface-2: #2d3532;
     --color-ink:       #dde8e3;
     --color-teal:      #3db5b9;
+    --color-border:    #384543;
     --color-tab-selected-bg: #1a3535;
     --color-editor-bg:  #1e2422;
     --color-editor-text: #d4e8e0;
-
-    --background:           35 41 40;
-    --foreground:           221 232 227;
-    --card:                 35 41 40;
-    --card-foreground:      221 232 227;
-    --primary:              61 181 185;
-    --primary-foreground:   27 31 30;
-    --secondary:            45 53 50;
-    --secondary-foreground: 221 232 227;
-    --muted:                45 53 50;
-    --muted-foreground:     140 165 158;
-    --accent:               45 53 50;
-    --accent-foreground:    221 232 227;
-    --destructive:          180 70 70;
-    --destructive-foreground: 221 232 227;
-    --border:               56 69 67;
-    --input:                56 69 67;
-    --ring:                 61 181 185;
   }
 
   body {
@@ -249,19 +175,19 @@
     font-size: 0.95rem;
     font-weight: 600;
     margin: 1.1rem 0 0.35rem;
-    color: rgb(var(--foreground));
+    color: var(--color-ink);
   }
 
   .lesson-body h3 {
     font-size: 0.88rem;
     font-weight: 600;
     margin: 0.9rem 0 0.25rem;
-    color: rgb(var(--foreground));
+    color: var(--color-ink);
   }
 
   .lesson-body hr {
     border: none;
-    border-top: 1px solid rgb(var(--border));
+    border-top: 1px solid var(--color-border);
     margin: 1rem 0;
   }
 }

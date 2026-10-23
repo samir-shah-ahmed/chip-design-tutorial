@@ -1,10 +1,14 @@
 import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
 
-const stored = browser ? localStorage.getItem('svt:done') : null;
-let _initial = [];
-if (stored) { try { _initial = JSON.parse(stored); } catch {} }
-export const completedSlugs = writable(new Set(_initial));
-if (browser) completedSlugs.subscribe(s => {
-  try { localStorage.setItem('svt:done', JSON.stringify([...s])); } catch {}
-});
+const KEY = 'vb:done';
+let initial = [];
+if (browser) {
+  try { initial = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { initial = []; }
+}
+export const completedSlugs = writable(new Set(initial));
+if (browser) {
+  completedSlugs.subscribe((slugs) => {
+    try { localStorage.setItem(KEY, JSON.stringify([...slugs])); } catch { /* private mode */ }
+  });
+}

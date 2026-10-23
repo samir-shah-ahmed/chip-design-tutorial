@@ -1,0 +1,11 @@
+<p>Inside one <code>always</code> procedure, <code>=</code> and <code>&lt;=</code> do not mean the same thing, even though both copy a value.</p>
+<ul>
+  <li><strong>Blocking <code>=</code></strong> updates the variable before the next statement in that procedure runs. Later statements in the same time step see the new value.</li>
+  <li><strong>Non-blocking <code>&lt;=</code></strong> schedules the update for after every procedure has read the right-hand sides. Every register sees the values from before the clock edge.</li>
+</ul>
+<p>Use <code>=</code> in combinational <code>always @(*)</code> blocks. Use <code>&lt;=</code> in <code>always @(posedge clk)</code> blocks. Mixing them in one clocked block is how shift registers accidentally collapse into a single wire.</p>
+<blockquote><p><strong>Exercise:</strong> The reset loads <code>a=0</code>, <code>b=1</code>. Change the swap so that one clock later the testbench prints <code>PASS</code> (<code>a</code> is 1 and <code>b</code> is 0). Blocking assignments cannot do that swap, because the second read sees the first write.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://standards.ieee.org/ieee/1364/3641/">IEEE 1364, blocking and non-blocking procedural assignments</a></li>
+</ul>

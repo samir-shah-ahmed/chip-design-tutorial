@@ -1,0 +1,11 @@
+<p>The Tang Primer 20K is the core-board form of the GW2A-18, not the Tang Nano 20K stick. Sipeed's FAQ lists it as GW2A-18C, PBGA256, C8/I7. Apicula lists <code>GW2A-LV18PG256C8/I7</code> with family <code>GW2A-18</code>, and separately warns that C-variant silicon wants <code>family=GW2A-18C</code>. Read the date code and Apicula's family note before you pick the flag. Getting this wrong produces a bitstream the chip rejects.</p>
+<p>The Primer docks (and the Tang Mega boards) are larger than a Nano: more I/O, often DRAM on the dock, and a different connector. This pass does not include a dock pin table. A Mega 138K or 60K lesson is not here either. Use the dock schematic that shipped with the carrier, and the same Yosys, nextpnr-himbaechel, gowin_pack, and openFPGALoader sequence, with the device string for that part.</p>
+<p>What does carry over from the Nano tracks is the RTL: blink, debounce, UART, PWM, and the line counter. Only the CST and the device string change. The exercise below is the simulator check, not a flashing procedure.</p>
+
+<blockquote><p><strong>Exercise:</strong> In <code>top.sv</code>, print <code>Tang Primer 20K</code> and finish. This only checks that the simulator is alive. The pins and commands are in the text.</p></blockquote>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-Doc/questions.html">Sipeed FAQ (Tang Primer 20K row)</a></li>
+  <li><a href="https://github.com/YosysHQ/apicula/wiki/Nextpnr%E2%80%90Himbaechel-Gowin">Apicula family note for GW2A-18 versus GW2A-18C</a></li>
+</ul>

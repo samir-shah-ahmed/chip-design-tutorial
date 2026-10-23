@@ -86,7 +86,7 @@ function pickWriteCache(requestUrl) {
 
 function shouldBypassReadCache(request) {
   if (request.cache === 'reload') return true;
-  if (request.headers.get('x-svt-offline-refresh') === '1') return true;
+  if (request.headers.get('x-vb-offline-refresh') === '1') return true;
   return false;
 }
 

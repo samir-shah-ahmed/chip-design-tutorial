@@ -36,9 +36,6 @@ jobs:
       - name: Download Surfer assets
         run: scripts/setup-surfer.sh
 
-      - name: Download Pyodide assets
-        run: scripts/setup-pyodide.sh
-
       - name: Download CIRCT wasm artifacts
         # Artifacts are stored in a GitHub Release named 'circt-wasm'.
         # To publish them locally, run:
@@ -52,29 +49,14 @@ jobs:
         run: |
           mkdir -p static/circt
 
-          unpack_uvm_bundle_if_present() {
-            if [ -f static/circt/uvm-core.tar.gz ]; then
-              rm -rf static/circt/uvm-core
-              tar -xzf static/circt/uvm-core.tar.gz -C static/circt
-            fi
-          }
-
-          have_uvm_bundle() {
-            [ -f static/circt/uvm-core/uvm-manifest.json ]
-          }
-
           if gh release download circt-wasm \
                --repo "$GITHUB_REPOSITORY" \
                -D static/circt \
                --clobber 2>/dev/null; then
-            unpack_uvm_bundle_if_present
+            rm -rf static/circt/uvm-core static/circt/uvm-core.tar.gz
             echo "CIRCT artifacts downloaded from release 'circt-wasm'"
             ls -lh static/circt/
-            if have_uvm_bundle; then
-              echo "UVM runtime bundle found"
-            else
-              echo "::notice::UVM runtime bundle missing (uvm-manifest.json not found); UVM lessons may fail."
-            fi
+            echo "::notice::UVM sources are not published. VeriBench does not ship UVM lessons."
           else
             echo "::notice::No 'circt-wasm' release found; simulation features will be unavailable."
           fi

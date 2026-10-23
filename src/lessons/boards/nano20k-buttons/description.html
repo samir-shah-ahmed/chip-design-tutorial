@@ -1,0 +1,14 @@
+<p>A mechanical button chatters. Sampling the pin directly in an FSM will see several presses. The circuit here is the one used on these boards: two flip-flops to enter the clock domain, then a counter that only accepts the level after it has been stable.</p>
+<p>On the Tang Nano 20K, treat the LiteX pin numbers as a lead and confirm them. On the Tang Nano 9K the Sipeed/Lushay UART article says the onboard button is pulled up to 1.8 V through 10 kΩ and reads low when pressed. Their CST names that button <code>btn1</code> on pin 3. Sipeed's FAQ says key S2 is wired to <code>JTAGSEL_N</code>; the official HDMI example constrains <code>resetn</code> to pin 4. Do not use S2 as a casual user button if you also need JTAG.</p>
+<p>On the Tang Nano 20K, the LiteX board file (a secondary source, not the Sipeed blink article) places buttons on pins 88 and 87. Confirm those against the 20K schematic before you depend on them. The Sipeed blink article itself documents the 27 MHz clock on pin 4 and LED0 on pin 15, and does not list the buttons.</p>
+<pre>IO_LOC "btn1" 3;
+IO_PORT "btn1" IO_TYPE=LVCMOS18;</pre>
+<blockquote><p><strong>Exercise:</strong> Raise <code>pressed</code> only after <code>s1</code> has been low for <code>STABLE</code> clocks. The testbench holds the button and expects <code>PASS pressed</code>. <code>STABLE</code> is 3 so the simulation is short. On a 27 MHz board, tens of milliseconds is a more realistic threshold.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/zh/tang/Tang-Nano-9K/examples/lushaylabs/2_debugging_uart/debugging_uart.html">Sipeed / Lushay Tang Nano 9K UART article (button polarity, pin 3, pins 17 and 18)</a></li>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-Doc/questions.html">Sipeed FAQ (S2 and JTAGSEL_N) and the 9K device table</a></li>
+  <li><a href="https://github.com/sipeed/TangNano-9K-example/blob/main/hdmi/src/hdmi.cst">Tang Nano 9K official HDMI example (resetn on pin 4)</a></li>
+  <li><a href="https://github.com/litex-hub/litex-boards/blob/master/litex_boards/platforms/sipeed_tang_nano_20k.py">LiteX Tang Nano 20K platform (buttons 88 and 87)</a></li>
+  <li><a href="http://www.sunburst-design.com/papers/CummingsSNUG2008Boston_CDC.pdf">Cummings, CDC techniques (why the two flip-flops are there)</a></li>
+</ul>

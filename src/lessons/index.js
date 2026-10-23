@@ -10,7 +10,7 @@ import metas from './meta.js';
 
 // Lazy content loaders — Vite transforms these only when first requested.
 const htmlLoaders = import.meta.glob('./*/*/description.html', { query: '?raw', import: 'default' });
-const starterLoaders = import.meta.glob(['./*/*/*.{sv,py,mlir}', '!./*/*/*.sol.sv'], { query: '?raw', import: 'default' });
+const starterLoaders = import.meta.glob(['./*/*/*.sv', '!./*/*/*.sol.sv'], { query: '?raw', import: 'default' });
 const solutionLoaders = import.meta.glob('./*/*/*.sol.sv', { query: '?raw', import: 'default' });
 const imageLoaders = import.meta.glob('./*/*/*.{png,jpg,jpeg,gif,svg,webp}', { query: '?url', import: 'default' });
 
@@ -49,7 +49,7 @@ export async function loadLessonContent(slug) {
 
   for (const item of rest) {
     if (item.type === 'starter') {
-      const m = item.k.match(/^\.\/([\w-]+)\/([\w-]+)\/(.+\.(sv|py|mlir))$/);
+      const m = item.k.match(/^\.\/([\w-]+)\/([\w-]+)\/(.+\.sv)$/);
       if (m) files.a[`/src/${m[3]}`] = item.content;
     } else if (item.type === 'solution') {
       const m = item.k.match(/^\.\/([\w-]+)\/([\w-]+)\/(.+)\.sol\.sv$/);
@@ -76,65 +76,39 @@ export const parts = [
   {
     title: 'Verilog Fundamentals',
     chapters: [
-      { title: 'Getting Started', lessons: [L('verilog/intro'), L('verilog/modules'), L('verilog/wires-regs')] },
-      { title: 'Logic & Operations', lessons: [L('verilog/gates'), L('verilog/operators')] },
-      { title: 'Behavioral Modeling', lessons: [L('verilog/always-blocks'), L('verilog/if-case'), L('verilog/testbench')] },
+      { title: 'Boolean and Gates', lessons: [L('verilog/intro'), L('verilog/logic-basics'), L('verilog/gates')] },
+      { title: 'Modules and Signals', lessons: [L('verilog/modules'), L('verilog/wires-regs'), L('verilog/operators')] },
+      { title: 'Procedural Blocks', lessons: [L('verilog/always-blocks'), L('verilog/blocking'), L('verilog/if-case')] },
+      { title: 'State and Memory', lessons: [L('verilog/sequential'), L('verilog/fsm'), L('verilog/memories')] },
+      { title: 'Structure and Time', lessons: [L('verilog/parameters'), L('verilog/generate'), L('verilog/testbench'), L('verilog/clock-domains')] },
+    ],
+  },
+
+  {
+    title: 'FPGA Design',
+    chapters: [
+      { title: 'FPGA Fabric', lessons: [L('fpga/architecture'), L('fpga/resources')] },
+      { title: 'Building a Bitstream', lessons: [L('fpga/flow'), L('fpga/timing')] },
+      { title: 'Clocks and Debug', lessons: [L('fpga/clocking'), L('fpga/debug')] },
     ],
   },
   {
-    title: 'SystemVerilog Basics',
+    title: 'ASIC Design',
     chapters: [
-      { title: 'Introduction', lessons: [L('sv/welcome'), L('sv/modules-and-ports'), L('sv/data-types'), L('sv/always-comb')] },
-      { title: 'Sequential Logic', lessons: [L('sv/events'), L('sv/always-ff'), L('sv/counter')] },
-      { title: 'Data Types', lessons: [L('sv/parameters'), L('sv/packed-structs')] },
-      { title: 'Interfaces & Procedures', lessons: [L('sv/interfaces'), L('sv/modports'), L('sv/tasks-functions')] },
-      { title: 'State Machines', lessons: [L('sv/enums'), L('sv/fsm')] },
-      { title: 'Covergroups', lessons: [L('sv/covergroup-basics'), L('sv/coverpoint-bins'), L('sv/cross-coverage')] },
-      { title: 'Testbench Essentials', lessons: [L('sv/classes'), L('sv/queues-arrays'), L('sv/fork-join'), L('sv/randomization')] },
+      { title: 'ASIC RTL', lessons: [L('asic/rtl-to-gds'), L('asic/stdcells'), L('asic/synthesis')] },
+      { title: 'ASIC Physical Design', lessons: [L('asic/pnr'), L('asic/sta'), L('asic/signoff')] },
+      { title: 'Test and Tradeoffs', lessons: [L('asic/dft'), L('asic/tradeoffs')] },
+      { title: 'Open Silicon', lessons: [L('asic/open-tools'), L('asic/same-rtl')] },
     ],
   },
   {
-    title: 'SystemVerilog Assertions',
+    title: 'Tang Nano Boards',
     chapters: [
-      { title: 'Runtime Assertions', lessons: [L('sva/concurrent-sim'), L('sva/vacuous-pass'), L('sva/isunknown')] },
-      { title: 'Your First Formal Assertion', lessons: [L('sva/immediate-assert'), L('sva/sequence-basics')] },
-      { title: 'Implication & BMC', lessons: [L('sva/implication'), L('sva/formal-intro')] },
-      { title: 'Core Sequences', lessons: [L('sva/clock-delay'), L('sva/rose-fell'), L('sva/req-ack')] },
-      { title: 'Repetition Operators', lessons: [L('sva/consecutive-rep'), L('sva/nonconsec-rep'), L('sva/nonconsec-eq')] },
-      { title: 'Sequence Operators', lessons: [L('sva/throughout'), L('sva/sequence-ops'), L('sva/seq-args')] },
-      { title: 'Sampled Value Functions', lessons: [L('sva/stable-past'), L('sva/changed')] },
-      { title: 'Protocols & Coverage', lessons: [L('sva/disable-iff'), L('sva/abort'), L('sva/cover-property')] },
-      { title: 'Advanced Properties', lessons: [L('sva/local-vars'), L('sva/onehot'), L('sva/triggered'), L('sva/checker'), L('sva/recursive')] },
-      { title: 'Formal Verification', lessons: [L('sva/formal-assume'), L('sva/always-eventually'), L('sva/until'), L('sva/lec')] },
-    ],
-  },
-  {
-    title: 'Universal Verification Methodology',
-    chapters: [
-      { title: 'UVM Foundations', lessons: [L('uvm/reporting'), L('uvm/seq-item')] },
-      { title: 'Stimulus', lessons: [L('uvm/sequence'), L('uvm/driver'), L('uvm/constrained-random')] },
-      { title: 'Checking', lessons: [L('uvm/monitor'), L('uvm/env')] },
-      {
-        title: 'Functional Coverage',
-        lessons: [L('uvm/covergroup'), L('uvm/cross-coverage'), L('uvm/coverage-driven')],
-      },
-      { title: 'Advanced UVM', lessons: [L('uvm/factory-override'), L('uvm/ral')] },
-    ],
-  },
-  {
-    title: 'cocotb',
-    chapters: [
-      { title: 'cocotb Basics', lessons: [L('cocotb/first-test'), L('cocotb/clock-and-timing')] },
-      { title: 'Triggers & Clocks', lessons: [L('cocotb/edge-triggers'), L('cocotb/clockcycles-patterns')] },
-    ],
-  },
-  {
-    title: 'MLIR & CIRCT',
-    chapters: [
-      {
-        title: 'Inside the Compiler',
-        lessons: [L('mlir/intro'), L('mlir/comb'), L('mlir/seq'), L('mlir/lowering')],
-      },
+      { title: 'Nano 9K', lessons: [L('boards/nano9k-overview'), L('boards/nano9k-blink'), L('boards/nano9k-buttons'), L('boards/nano9k-uart'), L('boards/nano9k-pwm'), L('boards/nano9k-display')] },
+      { title: 'Nano 20K', lessons: [L('boards/nano20k-overview'), L('boards/nano20k-blink'), L('boards/nano20k-buttons'), L('boards/nano20k-uart'), L('boards/nano20k-pwm'), L('boards/nano20k-hdmi')] },
+      { title: 'Nano 4K', lessons: [L('boards/nano4k-overview'), L('boards/nano4k-blink')] },
+      { title: 'Nano 1K', lessons: [L('boards/nano1k-overview'), L('boards/nano1k-blink')] },
+      { title: 'Larger Sipeed Boards', lessons: [L('boards/primer20k')] },
     ],
   },
   {

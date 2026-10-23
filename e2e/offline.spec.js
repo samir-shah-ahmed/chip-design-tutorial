@@ -7,7 +7,7 @@ test.describe('offline bundle', () => {
     await page.goto('/');
     await page.evaluate(async () => {
       for (const key of Object.keys(localStorage)) {
-        if (key.startsWith('svt:')) localStorage.removeItem(key);
+        if (key.startsWith('vb:')) localStorage.removeItem(key);
       }
       if ('caches' in window) {
         const keys = await caches.keys();
@@ -38,16 +38,16 @@ test.describe('offline bundle', () => {
     await resetButton.click();
     await expect(statusChip).toBeHidden({ timeout: 20_000 });
 
-    const clearedState = await page.evaluate(() => localStorage.getItem('svt:offline-ready-v1') === null);
+    const clearedState = await page.evaluate(() => localStorage.getItem('vb:offline-ready-v1') === null);
     expect(clearedState).toBe(true);
 
     await offlineButton.click();
     await expect(statusChip).toContainText(/offline ready/i, { timeout: 240_000 });
 
     const readyState = await page.evaluate(async () => {
-      const state = localStorage.getItem('svt:offline-ready-v1');
+      const state = localStorage.getItem('vb:offline-ready-v1');
       if (state !== 'ready' || !('caches' in window)) return false;
-      const cache = await caches.open('svt-runtime-v1');
+      const cache = await caches.open('vb-runtime-v1');
       const keys = await cache.keys();
       return keys.some((req) => req.url.includes('/__offline__/ready'));
     });

@@ -1,0 +1,17 @@
+<p>The module in the editor can go through either flow. The RTL does not say "FPGA" or "ASIC". The flows diverge after the simulator is happy.</p>
+<table>
+  <tr><th>Question</th><th>FPGA</th><th>ASIC</th></tr>
+  <tr><td>What implements a <code>+</code>?</td><td>LUTs and the carry chain, or a DSP</td><td>Standard cells from the PDK</td></tr>
+  <tr><td>What is the clock?</td><td>A global buffer fed by a pin or a PLL</td><td>A clock tree built during CTS</td></tr>
+  <tr><td>How do you know the clock is fast enough?</td><td>nextpnr or Gowin timing at the speed grade on the part</td><td>STA at several PVT corners on extracted wires</td></tr>
+  <tr><td>What leaves the tool?</td><td>A bitstream (<code>.fs</code> on Gowin)</td><td>GDSII plus the signoff reports</td></tr>
+  <tr><td>What does a mistake cost?</td><td>Reprogram the Tang Nano</td><td>A respin, unless you caught it before tapeout</td></tr>
+</table>
+<p>Write the clock enable in the RTL either way. On the FPGA it is the alternative to gating the clock. On the ASIC it is what the clock-gate cell will be inferred from, if you ask synthesis to do that and the library has the cell. The simulator checks the enable. It does not check which flow you intended.</p>
+<blockquote><p><strong>Exercise:</strong> Increment only when <code>ce</code> is high. Three enabled clocks should reach 3, and further clocks with <code>ce</code> low should hold 3.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://github.com/YosysHQ/apicula/wiki/Nextpnr%E2%80%90Himbaechel-Gowin">Apicula Gowin flow (bitstream side)</a></li>
+  <li><a href="https://openlane.readthedocs.io/en/latest/">OpenLane / OpenROAD (GDSII side)</a></li>
+  <li><a href="https://doi.org/10.1561/1000000005">Kuon, Tessier, and Rose (FPGA fabric versus a standard-cell ASIC)</a></li>
+</ul>

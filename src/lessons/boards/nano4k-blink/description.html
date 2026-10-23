@@ -1,0 +1,11 @@
+<p>One LED, one clock. Use the English Sipeed table: clock pin 45, LED pin 10, and remember pin 10 is a MODE pin that needs the dual-purpose checkbox. The conflicting Chinese table is discussed in the 4K overview. Reset, if you wire it, is pin 15 on that English page.</p>
+<pre>IO_LOC "clk" 45;
+IO_PORT "clk" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_LOC "led" 10;</pre>
+<p>The simulator still uses a one-bit bus and a tiny <code>LIMIT</code>. Width is 1.</p>
+<blockquote><p><strong>Exercise:</strong> Toggle <code>led</code>.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-4K/examples/led.html">Sipeed Tang Nano 4K blink</a></li>
+  <li><a href="https://github.com/YosysHQ/apicula/wiki/Nextpnr%E2%80%90Himbaechel-Gowin">Apicula device GW1NSR-LV4CQN48PC7/I6</a></li>
+</ul>

@@ -1,0 +1,15 @@
+<p>Sipeed's FAQ lists two different small boards:</p>
+<ul>
+  <li>Tang Nano — GW1N-1, QN48, C6/I5. Apicula: <code>GW1N-LV1QN48C6/I5</code>.</li>
+  <li>Tang Nano 1K — GW1NZ-1, QN48, C6/I5. Apicula: <code>GW1NZ-LV1QN48C6/I5</code>.</li>
+</ul>
+<p>They are not the same device. A bitstream built for one will not load on the other. This track's 1K lessons target the GW1NZ part. A checked LED and clock pin table for the 1K was not included here, so this overview does not print <code>IO_LOC</code> lines. Copy them from the Sipeed Tang Nano 1K schematic or blink example before you program a pin. The open-source command shape is the 9K one with the 1K device string and <code>openFPGALoader -b tangnano1k</code>.</p>
+<p>The in-browser blinky on the next lesson is the RTL only. Do not flash it until the CST matches your schematic.</p>
+
+<blockquote><p><strong>Exercise:</strong> In <code>top.sv</code>, print <code>Tang Nano 1K</code> and finish. This only checks that the simulator is alive. The pins and commands are in the text.</p></blockquote>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-Doc/questions.html">Sipeed FAQ device table</a></li>
+  <li><a href="https://github.com/YosysHQ/apicula/wiki/Nextpnr%E2%80%90Himbaechel-Gowin">Apicula device GW1NZ-LV1QN48C6/I5</a></li>
+</ul>

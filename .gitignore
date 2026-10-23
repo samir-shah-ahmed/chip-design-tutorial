@@ -17,6 +17,8 @@ static/pyodide/
 
 # Dev screenshots and test artifacts
 *.png
+!static/icons/*.png
+!desktop/icon.png
 *.pdf
 .playwright-mcp/
 playwright-console.log

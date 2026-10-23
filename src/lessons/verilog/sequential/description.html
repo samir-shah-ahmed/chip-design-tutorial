@@ -1,0 +1,7 @@
+<p>A flip-flop copies its input only on a clock edge and holds that value for the rest of the cycle. A counter is a flip-flop whose next value is its current value plus one.</p>
+<p>The sensitivity list <code>@(posedge clk)</code> is the clock pin. <code>rst</code> in this lesson is synchronous: it is looked at on the clock edge, not as a second edge in the sensitivity list. Synchronous resets stay on the clock network and are the default style in the FPGA lessons later.</p>
+<blockquote><p><strong>Exercise:</strong> Make <code>count</code> increment when <code>rst</code> is low. After reset and five clocks the log should say <code>PASS count=5</code>.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://standards.ieee.org/ieee/1364/3641/">IEEE 1364, edge-controlled always procedures</a></li>
+</ul>

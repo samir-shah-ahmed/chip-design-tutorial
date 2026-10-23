@@ -1,0 +1,33 @@
+<p>The Tang Nano 20K uses a GW2AR-18C in QN88, speed C8/I7 (Sipeed FAQ). Apicula's part string is <code>GW2AR-LV18QN88C8/I7</code> and the family flag for the C silicon is <code>GW2A-18C</code>. The C variant is the one with internal SDRAM; confirm the density in the Gowin GW2AR datasheet rather than from a forum post.</p>
+<h2>Pins with a primary Sipeed citation</h2>
+<ul>
+  <li>27 MHz clock on pin 4, and LED0 on pin 15 (Sipeed 20K blink article).</li>
+  <li>MS5351 clock generator, configured by the onboard BL616. Sipeed's unbox notes connect CLK0, CLK1, and CLK2 to FPGA pins 10, 11, and 13.</li>
+</ul>
+<h2>Pins from the LiteX board file</h2>
+<p>LiteX lists <code>led_n</code> on pins 15, 16, 17, 18, 19, 20, an RGB LED on pin 79, and buttons on pins 88 and 87. The <code>led_n</code> name means LiteX treats them as active-low. This is a board-support file, not the Sipeed schematic. If you flash from it, diff it against the schematic first.</p>
+<pre>IO_LOC "clk" 4;
+IO_PORT "clk" IO_TYPE=LVCMOS33;
+IO_LOC "led[0]" 15;
+IO_PORT "led[0]" IO_TYPE=LVCMOS33 PULL_MODE=UP;</pre>
+
+<h2>Open-source flow</h2>
+<p>From the Apicula device table: part <code>GW2AR-LV18QN88C8/I7</code>, family <code>GW2A-18C</code>. Sipeed's FAQ calls the chip GW2AR-18C, package QN88, speed C8/I7. The family flag matters: Apicula's guide says the "C" silicon variant needs <code>family=GW2A-18C</code> rather than <code>GW2A-18</code>.</p>
+<pre>yosys -p "read_verilog design.v; synth_gowin -top top -json design.json"
+nextpnr-himbaechel --json design.json --write design_pnr.json \
+  --device GW2AR-LV18QN88C8/I7 --vopt family=GW2A-18C --vopt cst=board.cst
+gowin_pack -d GW2A-18C -o design.fs design_pnr.json
+openFPGALoader -b tangnano20k design.fs</pre>
+<p>Gowin EDA is the same sequence as the Tang Nano 9K overview, with the 20K device selected. The Sipeed 20K blink article is the GUI walkthrough for this board, including FloorPlanner.</p>
+
+
+<blockquote><p><strong>Exercise:</strong> In <code>top.sv</code>, print <code>Tang Nano 20K</code> and finish. This only checks that the simulator is alive. The pins and commands are in the text.</p></blockquote>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-Doc/questions.html">Sipeed FAQ device table</a></li>
+  <li><a href="https://github.com/YosysHQ/apicula/wiki/Nextpnr%E2%80%90Himbaechel-Gowin">Apicula nextpnr-himbaechel device table</a></li>
+  <li><a href="https://wiki.sipeed.com/hardware/en/tang/tang-nano-20k/example/led.html">Sipeed Tang Nano 20K blink</a></li>
+  <li><a href="https://github.com/sipeed/sipeed_wiki/blob/main/docs/hardware/en/tang/tang-nano-20k/example/unbox.md">Sipeed Tang Nano 20K unbox (MS5351, BL616)</a></li>
+  <li><a href="https://github.com/litex-hub/litex-boards/blob/master/litex_boards/platforms/sipeed_tang_nano_20k.py">LiteX Tang Nano 20K platform</a></li>
+</ul>

@@ -1,0 +1,24 @@
+<p>The Tang Nano 9K brings both a parallel RGB LCD header and an HDMI connector out of the same family of pins. The Sipeed LCD constraint page and the official <code>hdmi.cst</code> in <code>sipeed/TangNano-9K-example</code> are the pin lists to copy. They share RGB/TMDS pairs on the schematic (the net names are of the form <code>PIN75_RGB_R3/HDMI_D2_P</code>), so a design that drives the LCD and HDMI at the same time has to respect that those pins are not independent.</p>
+<h2>LCD, from the Sipeed constraint page</h2>
+<p>The page spells the horizontal sync pin <code>LCD_HYNC</code>. That spelling is theirs. Polarity is not stated on that page; take it from the panel you plug in.</p>
+<pre>IO_LOC "LCD_CLK" 35;
+IO_LOC "LCD_HYNC" 40;
+IO_LOC "LCD_SYNC" 34;
+IO_LOC "LCD_DEN" 33;
+IO_LOC "XTAL_IN" 52;</pre>
+<p>The rest of the color bus is on that same page: blue on 41, 42, 51, 53, 54; green on 55, 56, 57, 68, 69, 70; red on 71 through 75.</p>
+<h2>HDMI, from the official example CST</h2>
+<pre>IO_LOC "tmds_clk_p" 69,68;
+IO_LOC "tmds_d_p[2]" 75,74;
+IO_LOC "tmds_d_p[1]" 73,72;
+IO_LOC "tmds_d_p[0]" 71,70;
+IO_LOC "clk" 52;
+IO_LOC "resetn" 4;</pre>
+<p>Those are differential pairs (P then N in Gowin's <code>IO_LOC</code> form). A real HDMI image needs a pixel clock from the rPLL, well above 27 MHz, and a TMDS encoder. This lesson does not pretend to be that encoder. It is the line counter you need before the encoder: a pixel index and a sync pulse. Build the full serializer from the Sipeed HDMI example once this counter behaves.</p>
+<blockquote><p><strong>Exercise:</strong> Assert <code>hsync</code> while <code>x &lt; H_SYNC</code>. The parameters are tiny so the simulator can see the pulse. A 640-wide line is the same module with different parameters, plus the porch counts from the video mode you chose.</p></blockquote>
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://en.wiki.sipeed.com/hardware/zh/tang/Tang-Nano-9K/examples/lcd_constrains.html">Sipeed Tang Nano 9K LCD pin constraints</a></li>
+  <li><a href="https://github.com/sipeed/TangNano-9K-example/blob/main/hdmi/src/hdmi.cst">sipeed/TangNano-9K-example hdmi.cst</a></li>
+  <li><a href="https://dl.sipeed.com/fileList/TANG/Nano%209K/2_Schematic/Tang_Nano_9k_3672_Schematic.pdf">Tang Nano 9K schematic (RGB and HDMI share nets)</a></li>
+</ul>
